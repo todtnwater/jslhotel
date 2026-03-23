@@ -1,0 +1,1100 @@
+@charset "UTF-8";
+
+/* ========================================
+   원본 멤버십 CSS (기존 테이블 레이아웃)
+   ======================================== */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 1000px;
+    overflow-x: auto;
+}
+
+div:after{
+   content : "";
+   display : block;
+   clear : both;
+}
+
+.membership-container{
+   width:1000px;
+   min-height:900px;
+   box-sizing: border-box;
+   position:relative;
+}
+.membership-main{
+   padding:20px 10px;
+}
+
+.membership-area{
+   width:90%;
+   margin:15px auto;
+   box-sizing: border-box;
+   position:relative;
+}
+.membership{
+   width:25%;
+   box-sizing: border-box;
+   border-bottom:1px solid black;
+   border-left:1px solid black;
+   float:left;
+}
+.membership.bronze{
+   border-color:brown;
+   height:200px;
+}
+.membership.silver{
+   border-color:silver;
+   height:500px;
+}
+.membership.gold{
+   border-color:gold;
+   height:600px;
+}
+.membership.premium{
+   border-color:#000000;
+   border-right:1px solid #000000;
+   height:700px;
+}
+.membership-name-area{
+   width:90%;
+   margin:15px auto;
+   box-sizing: border-box;
+   position:relative;
+}
+.membership-name-area ul{
+   list-style:none;
+}
+.membership-name-area li{
+   padding:0 10px;
+   width:25%;
+}
+.membership-name{
+   float:left;
+   width:20%;
+   height: 50px;
+   line-height:50px;
+   text-align: center;
+   color : white;
+}
+.membership-name.bronze h2{
+   background:brown;
+}
+.membership-name.silver h2{
+   background:silver;
+}
+.membership-name.gold h2{
+   background:gold;
+}
+.membership-name.premium h2{
+   background:#000000;
+}
+.membership-area ul{
+   list-style: none;
+}
+.membership-area li{
+   padding-left:10px;
+}
+.condition{
+   width:95%;
+   margin: 5px auto;
+   padding:10px;
+}
+.gubun{
+   width:95%;
+   margin: 5px auto;
+   border:1px solid black;
+}
+.benefit{
+   width:95%;
+   margin: 5px auto;
+   position:relative;
+}
+.benefit-main{
+   width:100%;
+   padding-left: 5px;
+   margin: 15px 0 5px 0;
+}
+.benefit-main p{
+   font-size: 15px;
+   font-weight: bold;
+}
+.benefit-sub{
+   width:100%;
+   padding-left: 10px;
+}
+.benefit-sub p{
+   font-size: 12px;
+   margin: 5px 0 5px 0;
+   font-weight: normal;
+}
+
+/* ========================================
+   포켓몬 카드 스타일 (추가)
+   ======================================== */
+
+/* ========================================
+   CSS 변수 정의 (색상, 크기 등)
+   ======================================== */
+:root {
+    /* 카드 기본 비율 및 크기 */
+    --card-aspect: 1.4;           /* 카드 가로:세로 비율 */
+    --card-radius: 15px;          /* 카드 모서리 둥글기 */
+    --card-edge: hsl(47, 100%, 78%);
+    
+    /* 등급별 빛나는 색상 (hover 시 glow 효과) */
+    --bronze-glow: hsl(25, 75%, 47%);    /* 브론즈 주황빛 */
+    --silver-glow: hsl(0, 0%, 75%);      /* 실버 은빛 */
+    --gold-glow: hsl(45, 100%, 51%);     /* 골드 황금빛 */
+    --premium-glow: hsl(280, 70%, 60%);  /* 프리미엄 보라빛 */
+    
+    /* 홀로그램 반짝임 효과에 사용되는 레인보우 색상 */
+    --shimmer-1: hsl(2, 100%, 73%);      /* 빨강 */
+    --shimmer-2: hsl(53, 100%, 69%);     /* 노랑 */
+    --shimmer-3: hsl(93, 100%, 69%);     /* 연두 */
+    --shimmer-4: hsl(176, 100%, 76%);    /* 청록 */
+    --shimmer-5: hsl(228, 100%, 74%);    /* 파랑 */
+    --shimmer-6: hsl(283, 100%, 73%);    /* 보라 */
+}
+
+/* ========================================
+   헤더 (제목 및 설명)
+   ======================================== */
+.board-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.board-header h1 {
+    font-size: 36px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.board-header p {
+    font-size: 16px;
+    color: #666;
+}
+
+/* ========================================
+   카드 그리드 레이아웃
+   4개의 카드를 한 줄로 배치
+   ======================================== */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);  /* 4개 균등 배치 */
+    gap: 150px;                               /* 카드 간격 */
+    perspective: 2000px;                     /* 3D 효과 원근감 */
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ========================================
+   카드 레이아웃
+   ======================================== */
+
+.membership-main2{
+    
+    /* 컨테이너 중앙 정렬 및 너비 제한 */
+    width: 100%;             
+    max-width: 800px;        /* 전체 컨테이너 최대 너비 (예시) */
+    margin: 0 auto;          /* 중앙 정렬 */
+    
+    /* ★ 좌우 여백의 불균형을 유발할 수 있는 좌우 패딩은 제거합니다. */
+    padding: 20px 30px;         /* 상하 패딩만 남기고 좌우는 0 */
+
+    /* 줄바꿈 방지 */
+    flex-wrap: nowrap;
+}
+
+.card-block-left {
+/* ★ 정확한 너비를 지정하여, 컨테이너를 완벽하게 채우도록 합니다. */
+    width: 330px; 
+    float:left;
+    
+    /* 다른 속성 */
+    perspective: 2000px;
+    padding: 0;
+    max-width: none;
+}
+
+.card-block-right {
+/* ★ 정확한 너비를 지정하여, 컨테이너를 완벽하게 채우도록 합니다. */
+    width: 330px; 
+    float:right;
+    
+    /* 다른 속성 */
+    perspective: 2000px;
+    padding: 0;
+    max-width: none;
+}
+
+/* ========================================
+   개별 멤버십 카드
+   ======================================== */
+.membership-card {
+    position: relative;
+    width: 100%;
+    aspect-ratio: var(--card-aspect);                    /* 카드 비율 유지 */
+    transform-style: preserve-3d;                        /* 3D 변환 유지 */
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    cursor: pointer;
+}
+
+/* 호버 시 카드가 위로 떠오르고 확대됨 */
+.membership-card:hover {
+    transform: translateY(-30px) scale(1.15);  /* 위로 30px, 1.15배 확대 */
+    z-index: 100;                               /* 다른 카드 위로 */
+}
+
+/* ========================================
+   카드 내부 컨테이너 (3D 회전용)
+   ======================================== */
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 175%;
+    transform-style: preserve-3d;
+    transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* 호버 시 마우스 위치에 따라 3D 회전 */
+.membership-card:hover .card-inner {
+    transform: rotateY(var(--rotate-x, 2deg)) rotateX(var(--rotate-y, -2deg));
+}
+
+/* ========================================
+   카드 앞면 (실제 카드 표면)
+   ======================================== */
+.card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--card-radius);
+    overflow: hidden;
+    backface-visibility: hidden;
+    box-shadow: 
+        0 0 5px rgba(255, 255, 255, 0.3),
+        0 5px 15px rgba(0, 0, 0, 0.3),
+        0 15px 35px rgba(0, 0, 0, 0.4);
+    transition: box-shadow 0.4s ease, width 0.3s ease, height 0.3s ease;
+}
+
+/* 데스크톱에서만 카드 크기 확대 (내용이 잘 보이도록) */
+@media screen and (min-width: 769px) {
+    .card-face {
+        width: 100%;   /* 가로 100% */
+        height: 150%;  /* 세로 150% */
+    }
+}
+
+@media screen and (max-width: 768px) {
+    /* ... 다른 설정 ... */
+    
+    .card-block-left,
+    .card-block-right {
+        float: none; /* float 방식을 사용했다면 모바일에서 해제 권장 */
+        width: 90%; 
+        /* ★ 카드가 너무 길어지는 것을 막는 핵심 설정 */
+        max-width: 300px; 
+    }
+}
+
+.card-front {
+    transform: translateZ(1px);  /* 약간 앞으로 */
+}
+
+/* ========================================
+   카드 배경 (등급별 그라데이션)
+   ======================================== */
+.card-background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* 브론즈 - 주황/갈색 계열 그라데이션 */
+.card-background.bronze {
+    background: 
+        radial-gradient(circle at 30% 20%, rgba(255, 200, 100, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(139, 69, 19, 0.3) 0%, transparent 50%),
+        linear-gradient(135deg, 
+            #cd7f32 0%, 
+            #d4894a 20%,
+            #b8860b 40%, 
+            #9b6f1a 60%,
+            #8b6914 80%, 
+            #654321 100%);
+}
+
+/* 실버 - 은색 계열 그라데이션 */
+.card-background.silver {
+    background: 
+        radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(160, 160, 160, 0.3) 0%, transparent 50%),
+        linear-gradient(135deg, 
+            #f5f5f5 0%, 
+            #e8e8e8 20%,
+            #d3d3d3 40%, 
+            #c0c0c0 60%,
+            #a8a8a8 80%, 
+            #909090 100%);
+}
+
+/* 골드 - 황금색 계열 그라데이션 (밝게) */
+.card-background.gold {
+    background: 
+        radial-gradient(circle at 30% 20%, rgba(255, 240, 200, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(255, 200, 80, 0.3) 0%, transparent 50%),
+        linear-gradient(135deg, 
+            #ffd966 0%, 
+            #ffcc33 20%,
+            #ffbf00 40%, 
+            #e6ac00 60%,
+            #cc9900 80%, 
+            #b38600 100%);
+}
+
+/* 프리미엄 - 블랙 계열 그라데이션 (고급스러운 다크톤) */
+.card-background.premium {
+    background: 
+        radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
+        linear-gradient(135deg, 
+            #2b2b2b 0%, 
+            #1f1f1f 25%,
+            #141414 50%, 
+            #0d0d0d 75%,
+            #000000 100%);
+}
+
+
+/* ========================================
+   홀로그램 반짝임 효과 (card-shine)
+   호버 시 레인보우 색상이 움직이는 효과
+   ======================================== */
+/* 이거 키면 눈뽕 */
+/*
+.card-shine {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    opacity: 0;
+    background-size: 300% 300%;
+    background-position: 0% 50%;
+    mix-blend-mode: color-dodge;
+    transition: opacity 0.3s ease;
+}
+
+.bronze .card-shine {
+    background-image: 
+        repeating-linear-gradient(110deg,
+            hsl(25, 90%, 55%), hsl(35, 100%, 60%), hsl(20, 85%, 50%),
+            hsl(30, 95%, 55%), hsl(25, 90%, 55%), hsl(35, 100%, 60%),
+            hsl(20, 85%, 50%), hsl(30, 95%, 55%)
+        );
+    filter: brightness(1.1) contrast(2.2) saturate(1);
+}
+
+.silver .card-shine {
+    background-image: 
+        repeating-linear-gradient(110deg,
+            hsl(0, 0%, 85%), hsl(210, 15%, 90%), hsl(180, 10%, 85%),
+            hsl(0, 0%, 95%), hsl(0, 0%, 85%), hsl(210, 15%, 90%),
+            hsl(180, 10%, 85%), hsl(0, 0%, 95%)
+        );
+    filter: brightness(1.2) contrast(2.5) saturate(0.3);
+}
+
+.gold .card-shine {
+    background-image: 
+        repeating-linear-gradient(110deg,
+            hsl(45, 100%, 60%), hsl(50, 100%, 65%), hsl(40, 100%, 55%),
+            hsl(55, 100%, 70%), hsl(45, 100%, 60%), hsl(50, 100%, 65%),
+            hsl(40, 100%, 55%), hsl(55, 100%, 70%)
+        );
+    filter: brightness(1.15) contrast(2.3) saturate(1.2);
+}
+
+.premium .card-shine {
+    background-image: 
+        repeating-linear-gradient(110deg,
+            var(--shimmer-6), var(--shimmer-5), var(--shimmer-4),
+            var(--shimmer-3), var(--shimmer-2), var(--shimmer-1),
+            var(--shimmer-6), var(--shimmer-5), var(--shimmer-4),
+            var(--shimmer-3), var(--shimmer-2), var(--shimmer-1)
+        );
+    filter: brightness(1) contrast(2.8) saturate(1.5);
+}
+
+.membership-card.bronze:hover .card-shine {
+    opacity: 0.55;
+    animation: shimmerMove 3.5s ease-in-out infinite;
+}
+
+.membership-card.silver:hover .card-shine {
+    opacity: 0.65;
+    animation: shimmerMove 3s ease-in-out infinite;
+}
+
+.membership-card.gold:hover .card-shine {
+    opacity: 0.7;
+    animation: shimmerMove 2.5s ease-in-out infinite;
+}
+
+.membership-card.premium:hover .card-shine {
+    opacity: 0.8;
+    animation: shimmerMove 2s ease-in-out infinite;
+}
+
+@keyframes shimmerMove {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+*/
+
+/* ========================================
+   스파클 효과 (작은 빛 입자들)
+   호버 시 반짝이는 작은 점들
+   ======================================== */
+.card-sparkle {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+/* 브론즈 - 주황빛 스파클 (3개) */
+.bronze .card-sparkle {
+    background-image: 
+        radial-gradient(circle at 25% 25%, 
+            rgba(255, 200, 100, 0.7) 0%, 
+            transparent 2%),
+        radial-gradient(circle at 75% 30%, 
+            rgba(255, 180, 80, 0.5) 0%, 
+            transparent 1.5%),
+        radial-gradient(circle at 50% 70%, 
+            rgba(255, 190, 90, 0.6) 0%, 
+            transparent 2%);
+}
+
+/* 실버 - 흰색/은색 스파클 (5개) */
+.silver .card-sparkle {
+    background-image: 
+        radial-gradient(circle at 30% 30%, 
+            rgba(255, 255, 255, 0.9) 0%, 
+            transparent 2%),
+        radial-gradient(circle at 70% 20%, 
+            rgba(240, 245, 255, 0.7) 0%, 
+            transparent 2%),
+        radial-gradient(circle at 50% 60%, 
+            rgba(255, 255, 255, 0.8) 0%, 
+            transparent 2%),
+        radial-gradient(circle at 20% 80%, 
+            rgba(240, 245, 255, 0.6) 0%, 
+            transparent 2%),
+        radial-gradient(circle at 80% 70%, 
+            rgba(255, 255, 255, 0.7) 0%, 
+            transparent 2%);
+}
+
+/* 골드 - 황금빛 스파클 (6개) */
+.gold .card-sparkle {
+    background-image: 
+        radial-gradient(circle at 30% 30%, 
+            rgba(255, 240, 150, 0.95) 0%, 
+            transparent 2.5%),
+        radial-gradient(circle at 70% 20%, 
+            rgba(255, 235, 130, 0.8) 0%, 
+            transparent 2%),
+        radial-gradient(circle at 50% 60%, 
+            rgba(255, 245, 140, 0.9) 0%, 
+            transparent 2.5%),
+        radial-gradient(circle at 20% 80%, 
+            rgba(255, 230, 120, 0.7) 0%, 
+            transparent 2%),
+        radial-gradient(circle at 80% 70%, 
+            rgba(255, 240, 135, 0.85) 0%, 
+            transparent 2%),
+        radial-gradient(circle at 40% 45%, 
+            rgba(255, 235, 125, 0.75) 0%, 
+            transparent 1.5%);
+}
+
+/* 프리미엄 - 보라빛 스파클 (7개 - 가장 많음) */
+.premium .card-sparkle {
+    background-image: 
+        radial-gradient(circle at 30% 30%, 
+            rgba(200, 150, 255, 0.95) 0%, 
+            transparent 2%),
+        radial-gradient(circle at 70% 20%, 
+            rgba(180, 130, 255, 0.8) 0%, 
+            transparent 2%),
+        radial-gradient(circle at 50% 60%, 
+            rgba(220, 170, 255, 0.9) 0%, 
+            transparent 2.5%),
+        radial-gradient(circle at 20% 80%, 
+            rgba(190, 140, 255, 0.75) 0%, 
+            transparent 2%),
+        radial-gradient(circle at 80% 70%, 
+            rgba(210, 160, 255, 0.85) 0%, 
+            transparent 2%),
+        radial-gradient(circle at 40% 45%, 
+            rgba(200, 150, 255, 0.8) 0%, 
+            transparent 1.5%),
+        radial-gradient(circle at 60% 85%, 
+            rgba(230, 190, 255, 0.7) 0%, 
+            transparent 2%);
+}
+
+/* 호버 시 스파클 애니메이션 (등급별 속도 차이) */
+.membership-card.bronze:hover .card-sparkle {
+    opacity: 0.8;
+    animation: sparkle 2.5s ease-in-out infinite;
+}
+
+.membership-card.silver:hover .card-sparkle {
+    opacity: 1;
+    animation: sparkle 2s ease-in-out infinite;
+}
+
+.membership-card.gold:hover .card-sparkle {
+    opacity: 1;
+    animation: sparkle 1.8s ease-in-out infinite;
+}
+
+.membership-card.premium:hover .card-sparkle {
+    opacity: 1;
+    animation: sparkle 1.5s ease-in-out infinite;  /* 가장 빠름 */
+}
+
+/* 스파클 깜빡임 애니메이션 */
+@keyframes sparkle {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+}
+
+/* ========================================
+   글레어 효과 (빛 반사)
+   마우스 위치를 따라다니는 빛 반사 효과
+   ======================================== */
+.card-glare {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 4;
+    opacity: 0;
+    mix-blend-mode: overlay;
+    transition: opacity 0.3s ease;
+    pointer-events: none;  /* 마우스 이벤트 무시 */
+}
+
+/* 브론즈 - 주황빛 글레어 */
+.bronze .card-glare {
+    background: radial-gradient(
+        circle at var(--pointer-x, 50%) var(--pointer-y, 50%),
+        rgba(255, 200, 100, 0.7) 0%,
+        rgba(255, 180, 80, 0.3) 20%,
+        rgba(0, 0, 0, 0.2) 80%
+    );
+}
+
+/* 실버 - 흰색 글레어 */
+.silver .card-glare {
+    background: radial-gradient(
+        circle at var(--pointer-x, 50%) var(--pointer-y, 50%),
+        rgba(255, 255, 255, 0.9) 0%,
+        rgba(240, 245, 255, 0.5) 20%,
+        rgba(0, 0, 0, 0.15) 80%
+    );
+}
+
+/* 골드 - 황금빛 글레어 */
+.gold .card-glare {
+    background: radial-gradient(
+        circle at var(--pointer-x, 50%) var(--pointer-y, 50%),
+        rgba(255, 240, 150, 0.85) 0%,
+        rgba(255, 230, 120, 0.4) 20%,
+        rgba(0, 0, 0, 0.2) 80%
+    );
+}
+
+/* 프리미엄 - 보라빛 글레어 */
+.premium .card-glare {
+    background: radial-gradient(
+        circle at var(--pointer-x, 50%) var(--pointer-y, 50%),
+        rgba(200, 150, 255, 0.9) 0%,
+        rgba(180, 130, 255, 0.5) 20%,
+        rgba(0, 0, 0, 0.3) 80%
+    );
+}
+
+/* 호버 시 글레어 투명도 (등급별 차이) */
+.membership-card.bronze:hover .card-glare {
+    opacity: 0.6;
+}
+
+.membership-card.silver:hover .card-glare {
+    opacity: 0.75;
+}
+
+.membership-card.gold:hover .card-glare {
+    opacity: 0.8;
+}
+
+.membership-card.premium:hover .card-glare {
+    opacity: 0.85;  /* 가장 밝음 */
+}
+
+/* ========================================
+   카드 내용 (텍스트 영역)
+   ======================================== */
+.card-content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    padding: 35px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: white;
+    overflow-y: auto;  /* 내용이 많으면 스크롤 */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+/* 실버와 골드는 검은색 텍스트 */
+.silver .card-content,
+.gold .card-content {
+    color: #1a1a1a;
+}
+
+/* 실버와 골드 스크롤바도 검은색 톤으로 */
+.silver .card-content,
+.gold .card-content {
+    scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
+}
+
+/* 스크롤바 스타일 (웹킷 브라우저용) */
+.card-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.card-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.card-content::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+}
+
+.card-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* ========================================
+   카드 헤더 (등급명)
+   ======================================== */
+.card-header {
+    text-align: center;
+}
+
+/* 메인 타이틀 (BRONZE, SILVER 등) - 굵은 검은 테두리 */
+.card-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    /* 5방향 그림자로 검은 테두리 효과 */
+    text-shadow: 
+        2px 2px 4px rgba(0, 0, 0, 0.8),
+        -1px -1px 0 rgba(0, 0, 0, 0.8),
+        1px -1px 0 rgba(0, 0, 0, 0.8),
+        -1px 1px 0 rgba(0, 0, 0, 0.8),
+        1px 1px 0 rgba(0, 0, 0, 0.8);
+    -webkit-text-stroke: 1px rgba(0, 0, 0, 0.5);  /* 웹킷 브라우저용 테두리 */
+}
+
+/* 실버와 골드는 흰색 그림자 (검은 글씨용) */
+.silver .card-title,
+.gold .card-title {
+    text-shadow: 
+        2px 2px 4px rgba(255, 255, 255, 0.8),
+        -1px -1px 0 rgba(255, 255, 255, 0.8),
+        1px -1px 0 rgba(255, 255, 255, 0.8),
+        -1px 1px 0 rgba(255, 255, 255, 0.8),
+        1px 1px 0 rgba(255, 255, 255, 0.8);
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
+}
+
+/* 서브타이틀 (브론즈 등급 등) - 중간 강도 테두리 */
+.card-subtitle {
+    font-size: 14px;
+    margin: 10px 0 0 0;
+    opacity: 0.95;
+    font-weight: 300;
+    text-shadow: 
+        1px 1px 2px rgba(0, 0, 0, 0.8),
+        -1px -1px 0 rgba(0, 0, 0, 0.6),
+        1px -1px 0 rgba(0, 0, 0, 0.6),
+        -1px 1px 0 rgba(0, 0, 0, 0.6),
+        1px 1px 0 rgba(0, 0, 0, 0.6);
+}
+
+/* 실버와 골드는 흰색 그림자 */
+.silver .card-subtitle,
+.gold .card-subtitle {
+    text-shadow: 
+        1px 1px 2px rgba(255, 255, 255, 0.8),
+        -1px -1px 0 rgba(255, 255, 255, 0.6),
+        1px -1px 0 rgba(255, 255, 255, 0.6),
+        -1px 1px 0 rgba(255, 255, 255, 0.6),
+        1px 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+/* ========================================
+   카드 바디 (혜택 내용)
+   ======================================== */
+.card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 12px;
+    margin: 15px 0;
+}
+
+/* 혜택 섹션 (반투명 배경) */
+.benefit-section {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);  /* 배경 흐림 효과 */
+    border-radius: 10px;
+    padding: 12px 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* 실버와 골드는 진한 테두리 */
+.silver .benefit-section,
+.gold .benefit-section {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+/* 혜택 제목 (포인트 적립, 이용권 등) - 강한 테두리 */
+.benefit-title {
+    font-size: 15px;
+    font-weight: bold;
+    margin: 0 0 8px 0;
+    color: white;
+    text-shadow: 
+        1px 1px 2px rgba(0, 0, 0, 0.8),
+        -1px -1px 0 rgba(0, 0, 0, 0.7),
+        1px -1px 0 rgba(0, 0, 0, 0.7),
+        -1px 1px 0 rgba(0, 0, 0, 0.7),
+        1px 1px 0 rgba(0, 0, 0, 0.7);
+}
+
+/* 실버와 골드는 흰색 그림자 */
+.silver .benefit-title,
+.gold .benefit-title {
+    color: #1a1a1a;
+    text-shadow: 
+        1px 1px 2px rgba(255, 255, 255, 0.8),
+        -1px -1px 0 rgba(255, 255, 255, 0.7),
+        1px -1px 0 rgba(255, 255, 255, 0.7),
+        -1px 1px 0 rgba(255, 255, 255, 0.7),
+        1px 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.benefit-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* 개별 혜택 항목 - 가벼운 테두리 */
+.benefit-item {
+    font-size: 12px;
+    margin: 4px 0;
+    padding-left: 15px;
+    position: relative;
+    line-height: 1.5;
+    text-shadow: 
+        1px 1px 2px rgba(0, 0, 0, 0.9),
+        -0.5px -0.5px 0 rgba(0, 0, 0, 0.7),
+        0.5px -0.5px 0 rgba(0, 0, 0, 0.7),
+        -0.5px 0.5px 0 rgba(0, 0, 0, 0.7),
+        0.5px 0.5px 0 rgba(0, 0, 0, 0.7);
+}
+
+/* 실버와 골드는 흰색 그림자 */
+.silver .benefit-item,
+.gold .benefit-item {
+    text-shadow: 
+        1px 1px 2px rgba(255, 255, 255, 0.9),
+        -0.5px -0.5px 0 rgba(255, 255, 255, 0.7),
+        0.5px -0.5px 0 rgba(255, 255, 255, 0.7),
+        -0.5px 0.5px 0 rgba(255, 255, 255, 0.7),
+        0.5px 0.5px 0 rgba(255, 255, 255, 0.7);
+}
+
+/* 혜택 항목 앞 아이콘 (✦) */
+.benefit-item:before {
+    content: "✦";
+    position: absolute;
+    left: 0;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* 실버와 골드는 검은색 아이콘 */
+.silver .benefit-item:before,
+.gold .benefit-item:before {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+/* ========================================
+   카드 푸터 (조건)
+   ======================================== */
+.card-footer {
+    text-align: center;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* 실버와 골드는 검은색 테두리 */
+.silver .card-footer,
+.gold .card-footer {
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+/* 조건 텍스트 (비회원, 회원가입 시 등) - 강한 테두리 */
+.card-condition {
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.95;
+    text-shadow: 
+        1px 1px 2px rgba(0, 0, 0, 0.9),
+        -0.5px -0.5px 0 rgba(0, 0, 0, 0.7),
+        0.5px -0.5px 0 rgba(0, 0, 0, 0.7),
+        -0.5px 0.5px 0 rgba(0, 0, 0, 0.7),
+        0.5px 0.5px 0 rgba(0, 0, 0, 0.7);
+}
+
+/* 실버와 골드는 흰색 그림자 */
+.silver .card-condition,
+.gold .card-condition {
+    text-shadow: 
+        1px 1px 2px rgba(255, 255, 255, 0.9),
+        -0.5px -0.5px 0 rgba(255, 255, 255, 0.7),
+        0.5px -0.5px 0 rgba(255, 255, 255, 0.7),
+        -0.5px 0.5px 0 rgba(255, 255, 255, 0.7),
+        0.5px 0.5px 0 rgba(255, 255, 255, 0.7);
+}
+
+/* ========================================
+   호버 시 카드 그림자 효과 (등급별)
+   ======================================== */
+.membership-card.bronze:hover .card-face {
+    box-shadow: 
+        0 0 10px var(--bronze-glow),
+        0 0 30px var(--bronze-glow),
+        0 0 50px rgba(205, 127, 50, 0.6),
+        0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+.membership-card.silver:hover .card-face {
+    box-shadow: 
+        0 0 10px var(--silver-glow),
+        0 0 30px var(--silver-glow),
+        0 0 50px rgba(192, 192, 192, 0.6),
+        0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+.membership-card.gold:hover .card-face {
+    box-shadow: 
+        0 0 10px var(--gold-glow),
+        0 0 30px var(--gold-glow),
+        0 0 50px rgba(255, 215, 0, 0.7),
+        0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+.membership-card.premium:hover .card-face {
+    box-shadow: 
+        0 0 10px var(--premium-glow),
+        0 0 30px var(--premium-glow),
+        0 0 50px rgba(138, 43, 226, 0.7),
+        0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+/* ========================================
+   등급별 타이틀 색상
+   ======================================== */
+.bronze .card-title {
+    color: #ffd4a3;  /* 밝은 주황 */
+}
+
+.silver .card-title {
+    color: #1a1a1a;  /* 검은색 */
+}
+
+.gold .card-title {
+    color: #1a1a1a;  /* 검은색 */
+}
+
+.premium .card-title {
+    color: #e6d5ff;  /* 밝은 보라 */
+}
+
+/* ========================================
+   반응형 - 중간 크기 화면 (1600px 이하)
+   ======================================== */
+@media screen and (max-width: 1600px) {
+    .card-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 25px;
+        max-width: 1000px;
+    }
+}
+
+/* ========================================
+   반응형 - 태블릿 (1200px 이하)
+   ======================================== */
+@media screen and (max-width: 1200px) {
+    .card-grid {
+        grid-template-columns: repeat(2, 1fr);  /* 2x2 배치 */
+        gap: 40px;
+        max-width: 400px;
+    }
+    
+    /* 카드 크기 약간 축소 */
+    .card-face {
+        width: 100%;
+        height: 150%;
+    }
+}
+
+/* ========================================
+   반응형 - 모바일 (768px 이하)
+   ======================================== */
+@media screen and (max-width: 768px) {
+    .card-grid {
+        grid-template-columns: 1fr;  /* 1열 배치 */
+        gap: 40px;
+        max-width: 200px;
+    }
+    
+    .membership-container {
+        width: 100%;
+        padding: 0 15px;
+    }
+    
+    /* 모바일에서는 호버 효과 약하게 */
+    .membership-card:hover {
+        transform: translateY(-20px) scale(1.08);
+    }
+    
+    .card-content {
+        padding: 25px 20px;
+    }
+    
+    /* 폰트 크기 축소 */
+    .card-title {
+        font-size: 24px;
+    }
+    
+    .benefit-title {
+        font-size: 14px;
+    }
+    
+    .benefit-item {
+        font-size: 11px;
+    }
+}
+
+
+
+/* ========================================
+   포인트
+   ======================================== */
+   
+/* 포인트 사용 페이지 레이아웃 및 텍스트 스타일 */
+.info-section {
+    margin-bottom: 40px;
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333; /* 본문과 구분되는 색상 */
+    border-left: 5px solid #ffbf00; /* 골드 색상으로 강조 */
+    padding-left: 10px;
+}
+
+.section-description {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.info-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.info-list li {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 20px;
+}
+
+.info-list li::before {
+    content: "✔️"; /* 체크 표시로 강조 */
+    position: absolute;
+    left: 0;
+    color: #ffbf00;
+    font-size: 14px;
+    top: 0;
+}
+
+/* 사용처 표 스타일 */
+.usage-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 15px;
+}
+
+.usage-table th, .usage-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+.usage-table thead th {
+    background-color: #f7f7f7;
+    font-weight: bold;
+    color: #333;
+}

@@ -1,0 +1,837 @@
+@charset "UTF-8";
+
+/* ========================================
+   멤버십 상세 뷰 페이지 CSS
+   ======================================== */
+
+.membership-detail-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.board-header {
+    margin-bottom: 30px;
+    padding: 0 10px;
+}
+
+.detail-content-wrapper.gold-theme {
+    background-color: #f9f9f9;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+/* ========================================
+   상단: 카드 + 정보
+   ======================================== */
+.detail-top-section {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 40px;
+    border-bottom: 1px solid #eee;
+    gap: 50px;
+}
+
+/* 카드 영역 */
+.card-display-area {
+    flex: 0 0 260px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* 세로형 카드 */
+.detail-fixed-card {
+    width: 230px;
+    height: 340px;
+    border-radius: 15px;
+    position: relative;
+    background: linear-gradient(180deg, #ffd700, #cc9900);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    transition: transform 0.4s ease;
+}
+
+.detail-fixed-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -60%;
+    width: 200%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.12),
+        rgba(255, 255, 255, 0.12) 2px,
+        transparent 2px,
+        transparent 6px
+    );
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+.detail-fixed-card:hover {
+    transform: translateY(-8px) scale(1.05);
+}
+
+/* GOLD / SPRING 텍스트 위치 조정 */
+.detail-fixed-card .card-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 25px;
+}
+
+.detail-content-wrapper .detail-fixed-card .card-title {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    font-size: 28px;
+    font-weight: bold;
+    color: #fff;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+    position: absolute;
+    top: 20px;
+    left: 20px; /* ← 왼쪽 상단 고정 */
+}
+
+.detail-content-wrapper .detail-fixed-card .card-subtitle {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    font-size: 14px;
+    color: #fff;
+    opacity: 0.9;
+    letter-spacing: 1px;
+    position: absolute;
+    bottom: 20px;
+    right: 20px; /* ← 우측 하단 고정 */
+}
+
+/* ========================================
+   카드 정보 영역 (우측)
+   ======================================== */
+.card-info-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 25px; /* 블록 간 간격 (각 정보 블록 사이) */
+}
+
+/* ========================================
+   상단 우측 정보 블록 (정렬 수정)
+   ======================================== */
+.card-info-area .info-block {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    padding: 18px 24px; /* ← padding 줄여서 너무 넓은 느낌 제거 */
+    display: flex;
+    justify-content: space-between; /* 좌-우로 배치 */
+    align-items: center;
+    width: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-info-area .info-block:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* strong = 왼쪽 제목 */
+.card-info-area .info-block strong {
+    font-family: 'Poppins', 'Noto Sans KR', 'Pretendard', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #333;
+    letter-spacing: 0.3px;
+    flex: 1;             /* ← 공간을 균등하게 나누어줌 */
+    text-align: left;    /* ← 왼쪽 정렬로 고정 */
+}
+
+/* p = 오른쪽 내용 */
+.card-info-area .info-block p {
+    font-size: 19px;
+    color: #cc9900;
+    font-weight: 600;
+    flex: 1;             /* ← strong과 균등 분할 */
+    text-align: right;   /* ← 오른쪽 정렬 */
+    margin: 0;
+}
+
+
+
+/* 소제목 (가격 / 사용기간 등) */
+.card-info-area .info-label {
+    font-family: 'Poppins', 'Noto Sans KR', 'Pretendard', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: #444;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px; /* ← 제목과 내용 사이 간격을 조정 (여기 핵심) */
+}
+
+/* 내용 (금액 / 날짜) */
+.card-info-area .info-value {
+    font-size: 20px;
+    color: #cc9900;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+
+/* ========================================
+   중단: 혜택
+   ======================================== */
+.detail-middle-section {
+    padding: 50px 40px;
+    border-bottom: 1px solid #eee;
+}
+
+/* 골드 멤버십 쿠폰 제목 여백 수정 */
+/* 혜택 영역 제목 스타일 */
+.detail-middle-section h3 {
+    font-size: 18px;
+    color: #333;
+    border-bottom: 2px solid #ffbf00;
+    display: inline-block;
+    padding-bottom: 5px;
+    margin-bottom: 25px;
+}
+
+/* 첫 번째 h3(예: 골드 멤버십 이용권)은 상단 여백 제거 */
+.detail-middle-section h3:first-of-type {
+    margin-top: 0;
+}
+
+/* 두 번째 이후 제목(예: 골드 멤버십 쿠폰)은 위 여백 유지 */
+.detail-middle-section h3:not(:first-of-type) {
+    margin-top: 50px;
+}
+
+
+.detail-middle-section .benefit-list-detail {
+    list-style-type: none;
+    padding-left: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.detail-middle-section .benefit-list-detail li {
+    font-size: 16px;
+    line-height: 2.3;
+    position: relative;
+    padding-left: 20px;
+    margin-right: 30px;
+    flex: 0 0 45%;
+}
+
+.detail-middle-section .benefit-list-detail li:before {
+    content: "✦";
+    position: absolute;
+    left: 0;
+    color: #cc9900;
+}
+
+/* ========================================
+   하단: 유의사항
+   ======================================== */
+.detail-bottom-section {
+    padding: 40px;
+    background: #f0f0f0;
+    border-radius: 0 0 15px 15px;
+}
+
+.detail-bottom-section h3 {
+    margin-bottom: 20px; /* 제목과 내용 간격 확대 */
+}
+
+.notes-list {
+    list-style: disc;
+    margin-left: 20px;
+    font-size: 14px;
+    color: #555;
+    line-height: 2.2; /* 줄간격 유지 */
+}
+
+/* 버튼 */
+.final-button-group {
+    text-align: center;
+    padding: 30px 0;
+}
+
+.final-button-group .subscribe-button {
+    background-color: #ffbf00;
+    color: white;
+    padding: 15px 30px;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+/* ========================================
+   반응형
+   ======================================== */
+@media screen and (max-width: 768px) {
+    .detail-top-section {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 10px;
+        gap: 20px;
+    }
+
+    .card-display-area {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .card-info-area {
+        width: 100%;
+        align-items: center;
+        text-align: center;
+    }
+
+    .card-info-area .info-block {
+        width: 90%;
+        align-items: center;
+    }
+
+    .detail-middle-section .benefit-list-detail li {
+        flex: 0 0 100%;
+        margin-bottom: 10px;
+    }
+}
+
+/* ========================================
+   버튼 스타일
+   ======================================== */
+
+/* 구독하기 버튼 */
+.final-button-group .subscribe-button {
+    background-color: #ffbf00;
+    color: white;
+    padding: 15px 30px;
+    font-weight: bold;
+    border-radius: 5px;
+    margin: 0 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.final-button-group .subscribe-button:hover {
+    background-color: #e6ac00;
+    transform: translateY(-2px);
+}
+
+/* 목록으로 버튼 */
+.final-button-group .list-button {
+    background-color: #fff;
+    color: #555;
+    border: 2px solid #ccc;
+    padding: 14px 28px;
+    font-weight: bold;
+    border-radius: 5px;
+    margin: 0 10px;
+    transition: all 0.3s ease;
+}
+
+.final-button-group .list-button:hover {
+    background-color: #f2f2f2;
+    border-color: #999;
+    color: #333;
+    transform: translateY(-2px);
+}
+
+/* 프리미엄 테마 구독 버튼 */
+.premium-theme .subscribe-button {
+    background-color: #7a4ee3;
+    color: #fff;
+    border: none;
+    padding: 15px 30px;
+    font-weight: bold;
+    border-radius: 5px;
+    margin: 0 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.premium-theme .subscribe-button:hover {
+    background-color: #5e3bc4;
+    transform: translateY(-2px);
+}
+
+
+/* 두 버튼 공통 정렬 */
+.final-button-group {
+    text-align: center;
+    padding: 30px 0;
+}
+
+/* 프리미엄 카드 색상 */
+.premium-theme .detail-fixed-card {
+    background: linear-gradient(180deg, #c0aaff, #4b0082);
+}
+
+/* ========================================
+   PREMIUM 테마 (골드 페이지 구조 그대로, 블랙 카드)
+   ======================================== */
+
+.premium-theme {
+    background-color: #f9f9f9;
+    color: #111;
+}
+
+/* 상단·중단은 밝은 톤 유지 */
+.premium-theme .detail-top-section,
+.premium-theme .detail-middle-section {
+    background-color: #f9f9f9;
+}
+
+/* 하단은 짙은 회색으로 구분 */
+.premium-theme .detail-bottom-section {
+    background-color: #e4e4e4;
+}
+
+/* 카드 색상: 블랙 고정 */
+.premium-theme .detail-fixed-card {
+    background: linear-gradient(180deg, #2b2b2b, #000);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* 카드 텍스트 (PREMIUM / SPRING) */
+.premium-theme .card-title,
+.premium-theme .card-subtitle {
+    color: #fff;
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.1);
+}
+
+/* 상단 우측 금액 / 기간 글자: 강한 블랙 */
+.premium-theme .card-info-area .info-block p,
+.premium-theme .card-info-area .info-value {
+    color: #111 !important;
+}
+
+/* 혜택 리스트의 별(✦) 표시: 블랙 */
+.premium-theme .detail-middle-section .benefit-list-detail li:before {
+    color: #000 !important;
+}
+
+/* 중단 소제목 밑줄: 검정색으로 변경 */
+.premium-theme .detail-middle-section h3 {
+    border-bottom: 2px solid #000 !important;
+}
+
+/* 하단 유의사항 텍스트도 블랙 */
+.premium-theme .notes-list {
+    color: #111 !important;
+}
+
+/* 하단 버튼 영역: 메인 배경색(흰색)으로 분리 */
+.premium-theme .final-button-group {
+    background: #EEF7FF;
+    padding: 40px 0;
+}
+
+/* 버튼 스타일 */
+.premium-theme .subscribe-button {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 15px 30px;
+    font-weight: bold;
+    border-radius: 6px;
+    margin: 0 10px;
+    transition: all 0.3s ease;
+}
+
+.premium-theme .subscribe-button:hover {
+    background-color: #333;
+    transform: translateY(-2px);
+}
+
+.premium-theme .list-button {
+    background: #fff;
+    color: #111;
+    border: 2px solid #ccc;
+    padding: 14px 28px;
+    border-radius: 6px;
+    margin: 0 10px;
+    transition: all 0.3s ease;
+}
+
+.premium-theme .list-button:hover {
+    background: #f2f2f2;
+    border-color: #999;
+    transform: translateY(-2px);
+}
+
+
+/* ========================================
+   마이페이지 - 포인트 박스 스타일
+   ======================================== */
+
+
+/* ========================================
+   마이페이지 - 멤버십 & 포인트 통합 박스
+   ======================================== */
+
+/* 통합 박스 (width: 700px) */
+.membership-card-box-unified {
+    width: 700px;
+    margin: 0 auto 30px;
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.membership-card-box-unified > h3 {
+    margin: 0 0 25px 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+}
+
+/* 카드 + 포인트 wrapper */
+.card-and-point-wrapper {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+/* 카드 영역 (왼쪽) */
+.card-container {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 340px;
+}
+
+/* 포인트 영역 (오른쪽) */
+.point-info-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.point-info-section h4 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* 포인트 박스 스타일 (원본 그대로) */
+.point-info-box {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 30px;
+    color: white;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.point-info-box h3 {
+    margin: 0 0 20px 0;
+    font-size: 20px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.point-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.point-item {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    padding: 15px;
+    backdrop-filter: blur(10px);
+}
+
+.point-label {
+    font-size: 13px;
+    opacity: 0.9;
+    margin-bottom: 8px;
+}
+
+.point-value {
+    font-size: 28px;
+    font-weight: bold;
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+}
+
+.point-unit {
+    font-size: 16px;
+    font-weight: normal;
+    opacity: 0.8;
+}
+
+.point-note {
+    margin-top: 15px;
+    font-size: 12px;
+    opacity: 0.8;
+    text-align: center;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* 세로형 카드 스타일 (원본 크기 그대로) */
+.membership-card-vertical {
+    width: 230px;
+    height: 340px;
+    border-radius: 15px;
+    position: relative;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    transition: transform 0.4s ease;
+}
+
+.membership-card-vertical:hover {
+    transform: translateY(-8px) scale(1.05);
+}
+
+/* 실버 카드 */
+.silver-card {
+    background: linear-gradient(180deg, #e8e8e8, #a8a8a8);
+}
+
+/* 골드 카드 */
+.gold-card {
+    background: linear-gradient(180deg, #ffd700, #cc9900);
+}
+
+/* 프리미엄 카드 */
+.premium-card {
+    background: linear-gradient(180deg, #2b2b2b, #000);
+}
+
+/* 카드 패턴 */
+.membership-card-vertical::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -60%;
+    width: 200%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.12),
+        rgba(255, 255, 255, 0.12) 2px,
+        transparent 2px,
+        transparent 6px
+    );
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+/* 카드 내용 */
+.membership-card-vertical .card-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 25px;
+}
+
+/* 카드 타이틀 (SILVER, GOLD, PREMIUM) */
+.membership-card-vertical .card-title {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    font-size: 28px;
+    font-weight: bold;
+    color: #fff;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+/* 카드 서브타이틀 (SPRING) */
+.membership-card-vertical .card-subtitle {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    font-size: 14px;
+    color: #fff;
+    opacity: 0.9;
+    letter-spacing: 1px;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+
+/* 브론즈(비회원) 안내 메시지 */
+.no-membership-message {
+    text-align: center;
+    padding: 60px 20px;
+    color: #666;
+}
+
+.no-membership-message h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #999;
+}
+
+.no-membership-message p {
+    font-size: 14px;
+    color: #aaa;
+    margin-bottom: 20px;
+}
+
+.no-membership-message .upgrade-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.no-membership-message .upgrade-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* 반응형 (마이페이지) */
+@media (max-width: 768px) {
+    .membership-card-box-unified {
+        width: 95%;
+        padding: 20px;
+    }
+    
+    .card-and-point-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .point-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .membership-card-vertical {
+        width: 200px;
+        height: 300px;
+    }
+}
+
+/* ========================================
+   카드 플립 애니메이션
+   ======================================== */
+
+/* 플립 컨테이너 */
+.card-flip {
+    width: 230px;
+    height: 340px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.8s;
+    cursor: pointer;
+}
+
+.card-flip.flipped {
+    transform: rotateY(180deg);
+}
+
+/* 앞면, 뒷면 공통 */
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+}
+
+/* 앞면 */
+.card-front {
+    transform: rotateY(0deg);
+}
+
+/* 뒷면 */
+.card-back {
+    transform: rotateY(180deg);
+}
+
+/* 카드 뒷면 내용 */
+.card-back-content {
+    position: absolute;
+    inset: 0;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 18px;
+}
+
+.card-info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.card-info-label {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+}
+
+.card-info-value {
+    font-size: 13px;
+    color: #fff;
+    font-weight: 600;
+    text-align: right;
+}
+
+.card-back-subtitle {
+    position: absolute;
+    bottom: 25px;
+    right: 25px;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.6);
+    letter-spacing: 2px;
+    font-weight: 600;
+}
+
+/* 호버 효과 추가 */
+.card-flip:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+    .card-flip {
+        width: 200px;
+        height: 300px;
+    }
+    
+    .card-back-content {
+        padding: 25px;
+        gap: 15px;
+    }
+    
+    .card-info-label {
+        font-size: 11px;
+    }
+    
+    .card-info-value {
+        font-size: 12px;
+    }
+}
+
+

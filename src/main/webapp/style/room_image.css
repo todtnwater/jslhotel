@@ -1,0 +1,358 @@
+@charset "UTF-8";
+
+/* ========== 객실 이미지 슬라이더 섹션 ========== */
+.room-image-slider-section {
+    position: relative;
+    margin: 2rem 0;
+    padding: 2rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.room-image-slider-section h4 {
+    font-size: 1.3rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+}
+
+/* ========== 이미지 카드 래퍼 ========== */
+.image-cards-wrapper {
+    overflow-x: auto;
+    overflow-y: hidden;
+    position: relative;
+    padding: 0.5rem 0;
+    scroll-behavior: smooth;
+}
+
+/* 스크롤바 스타일링 */
+.image-cards-wrapper::-webkit-scrollbar {
+    height: 8px;
+}
+
+.image-cards-wrapper::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.image-cards-wrapper::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.image-cards-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.image-cards-track {
+    display: flex;
+    gap: 1rem;
+    transition: transform 0.3s ease;
+    flex-wrap: nowrap;
+}
+
+/* ========== 이미지 카드 ========== */
+.image-card {
+    flex: 0 0 250px;
+    height: 180px;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.image-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.image-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ========== 메인 배지 ========== */
+.main-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #007bff;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+/* ========== 업로드 카드 ========== */
+.upload-card {
+    background: white;
+    border: 2px dashed #dee2e6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.upload-card:hover {
+    background: #e7f3ff;
+    border-color: #007bff;
+}
+
+.upload-icon {
+    font-size: 3rem;
+    color: #007bff;
+    font-weight: 300;
+}
+
+.upload-card p {
+    margin-top: 0.5rem;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* ========== 슬라이더 화살표 ========== */
+.slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.slider-arrow:hover {
+    background: rgba(0,0,0,0.8);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.slider-prev {
+    left: 10px;
+}
+
+.slider-next {
+    right: 10px;
+}
+
+/* ========== 이미지 확대 모달 ========== */
+.image-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-modal.active {
+    display: flex;
+}
+
+/* ========== 모달 콘텐츠 ========== */
+.modal-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal-content img {
+    max-width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+/* ========== 모달 닫기 버튼 ========== */
+.modal-close {
+    position: absolute;
+    top: -50px;
+    right: 0;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-close:hover {
+    color: #ff4444;
+    transform: rotate(90deg);
+}
+
+/* ========== 모달 이전/다음 버튼 ========== */
+.modal-prev, .modal-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.3);
+    border: none;
+    color: white;
+    font-size: 2rem;
+    padding: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.modal-prev:hover, .modal-next:hover {
+    background: rgba(255,255,255,0.5);
+}
+
+.modal-prev {
+    left: -60px;
+}
+
+.modal-next {
+    right: -60px;
+}
+
+/* ========== 모달 정보 영역 ========== */
+.modal-info {
+    position: absolute;
+    bottom: -60px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    color: white;
+}
+
+.modal-info span {
+    font-size: 1rem;
+    color: white;
+}
+
+.btn-set-main, .btn-delete {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-set-main {
+    background: #007bff;
+    color: white;
+}
+
+.btn-set-main:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+}
+
+.btn-delete {
+    background: #dc3545;
+    color: white;
+}
+
+.btn-delete:hover {
+    background: #c82333;
+    transform: translateY(-2px);
+}
+
+/* ========== 반응형 디자인 ========== */
+@media (max-width: 1024px) {
+    .image-card {
+        flex: 0 0 200px;
+        height: 150px;
+    }
+    
+    .modal-prev {
+        left: 10px;
+    }
+    
+    .modal-next {
+        right: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .room-image-slider-section {
+        padding: 1.5rem;
+    }
+    
+    .image-card {
+        flex: 0 0 180px;
+        height: 130px;
+    }
+    
+    .upload-icon {
+        font-size: 2rem;
+    }
+    
+    .slider-arrow {
+        width: 35px;
+        height: 35px;
+        font-size: 1.2rem;
+    }
+    
+    .modal-content img {
+        max-height: 60vh;
+    }
+    
+    .modal-prev, .modal-next {
+        font-size: 1.5rem;
+        padding: 0.8rem;
+    }
+    
+    .modal-info {
+        flex-wrap: wrap;
+        bottom: -80px;
+    }
+}
+
+@media (max-width: 480px) {
+    .room-image-slider-section h4 {
+        font-size: 1.1rem;
+    }
+    
+    .image-card {
+        flex: 0 0 150px;
+        height: 110px;
+    }
+    
+    .main-badge {
+        font-size: 0.7rem;
+        padding: 3px 8px;
+    }
+    
+    .modal-close {
+        font-size: 2rem;
+        top: -40px;
+    }
+    
+    .btn-set-main, .btn-delete {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+}

@@ -1,0 +1,535 @@
+@charset "UTF-8";
+
+/* ========== Reset & Base ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #EEF7FF;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    color: #333;
+}
+
+
+.board-container {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.board-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.board-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.board-header p {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+/* ========== 공통 유틸리티 ========== */
+div:after {
+    /*content: "";*/
+    display: block;
+    clear: both;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.flex {
+    display: flex;
+}
+
+.right {
+    float: right;
+}
+
+/* ========== 공통 헤더 & 네비게이션 ========== */
+header {
+    background-color: #F7F4EA;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 5%;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #4D869C;
+}
+
+.logo a {
+    text-decoration: none;
+    color: #4D869C;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 3rem;
+}
+
+.nav-menu li a {
+    text-decoration: none;
+    color: #0056b3;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s;
+    padding: 0.5rem 0.8rem;
+    border-radius: 5px;
+    white-space: nowrap;
+        }
+
+.nav-menu li a:hover,
+.nav-menu li a.active {
+    color: #4D869C;
+    background-color: #f0f0f0;
+}
+
+/* 모바일 메뉴 */
+.mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #333;
+}
+
+.mobile-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    z-index: 99;
+}
+
+.mobile-menu.active {
+    display: block;
+}
+
+.mobile-nav-menu {
+    list-style: none;
+    padding: 1rem 0;
+}
+
+.mobile-nav-menu li {
+    padding: 1rem 5%;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.mobile-nav-menu li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+}
+
+/* 로그인 버튼 */
+.login-btn {
+    background: #EEF7FF;
+    color: #333;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px #EEF7FF;
+}
+
+/* ========== 공통 푸터 ========== */
+footer {
+    color: white;
+    padding: 5% 5%;
+    text-align: center;
+    background: linear-gradient(to bottom, #EEF7FF, #4D869C);
+    margin-top: auto;
+}
+
+.footer-content {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.footer-content p {
+    margin: 0.5rem 0;
+}
+
+/* ========== 공통 입력 요소 ========== */
+.upper {
+    text-transform: uppercase;
+}
+
+.input_100p { width: 100%; }
+.input_50p { width: 50%; }
+.input_70w { width: 70px; }
+.input_100w { width: 100px; }
+.input_140w { width: 140px; }
+.input_145w { width: 145px; }
+.input_150w { width: 150px; }
+.input_152w { width: 152.5px; }
+.input_200w { width: 200px; }
+.input_400w { width: 400px; }
+.input_450w { width: 450px; }
+
+.select_150w {
+    padding-left: 0.8rem;
+    width: 150px;
+    height: 35px;
+    font-size: 1rem;
+}
+
+.select_200w {
+    padding: 0.5rem;
+    height: 35px;
+    width: 200px;
+}
+
+/* ========== 공통 버튼 스타일 ========== */
+.button_90w {
+    float: right;
+    background: #4D869C;
+    margin-left: 10px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s;
+    width: 90px;
+    height: 30px;
+}
+
+.button_90w:hover {
+    background: #0056b3;
+}
+
+.button_90w.exit {
+    background: red;
+}
+
+.button_90w.exit:hover {
+    background: #d20000;
+}
+
+.button_90w.btn-green {
+    background: #28a745;
+}
+
+.button_90w.btn-green:hover {
+    background: #218838;
+}
+
+.button_90w.btn-gray {
+    background: #6c757d;
+}
+
+.button_90w.btn-gray:hover {
+    background: #5a6268;
+}
+
+.button_check {
+    background: #4D869C;
+    margin-left: 10px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s;
+    width: 90px;
+    height: 30px;
+}
+
+.button_check:hover {
+    background: #0056b3;
+}
+
+/* ========== 공통 사이드바 (게시판용) ========== */
+aside {
+    position: fixed;
+    left: 1rem;
+    top: 100px;
+    margin-top: 1%;
+    width: 14%;
+    padding: 1.5rem;
+    background: linear-gradient(-90deg, white, transparent);
+    border-right: 5px solid #007bff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+aside h3 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #007bff;
+    color: #333;
+}
+
+#snb {
+    list-style: none;
+    padding: 0;
+}
+
+#snb hr {
+    display: none;
+}
+
+#snb li {
+    margin-bottom: 8px;
+}
+
+#snb li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    display: block;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: all 0.2s ease;
+}
+
+#snb li.on a,
+#snb li a:hover {
+    background-color: #e7f3ff;
+    color: #007bff;
+    font-weight: bold;
+}
+
+/* ========== 공통 메인 영역 ========== */
+main {
+    flex: 1;
+    margin-left: 19%;
+    margin-right: 19%;
+    padding: 2rem;
+}
+
+/* ========== 공통 검색 영역 ========== */
+.search-area {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.search-area select,
+.search-area input {
+    padding: 0.8rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.search-area select {
+    width: 150px;
+}
+
+.search-area input {
+    flex: 1;
+}
+
+.search-area button {
+    padding: 0.8rem 2rem;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+    font-size: 1rem;
+}
+
+.search-area button:hover {
+    background: #0056b3;
+}
+
+.search-area a.write {
+    padding: 1.0rem 2rem;
+    background: #037902;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.2;
+    font-size: 1rem;
+}
+
+.search-area a.write:hover {
+    background: #035b02;
+}
+
+/* ========== 공통 페이지네이션 ========== */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+}
+
+.pagination button,
+.pagination a {
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border: 2px solid #007bff;
+    background: white;
+    color: #007bff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.pagination button:hover,
+.pagination button.active,
+.pagination a:hover,
+.pagination a.active {
+    background: #007bff;
+    color: white;
+}
+
+/* ========== 공통 알림/로딩 ========== */
+.loading {
+    display: none;
+    text-align: center;
+    padding: 2rem;
+}
+
+.loading.active {
+    display: block;
+}
+
+.spinner {
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #4D869C;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 0px;
+    background: #28a745;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    z-index: 1001;
+}
+
+.notification.show {
+    transform: translateX(0);
+}
+
+.notification.error {
+    background: #dc3545;
+}
+
+.notification.success {
+    background: #28a745;
+}
+
+.notification.info {
+    background: #17a2b8;
+}
+
+.notification.warning {
+    background: #ffc107;
+    color: #333;
+}
+
+/* ========== 공통 반응형 ========== */
+@media (max-width: 1200px) {
+    .nav-menu {
+        display: none;
+    }
+
+    .mobile-menu-toggle {
+        display: block;
+    }
+}
+
+@media (max-width: 768px) {
+    aside {
+        display: none;
+    }
+
+    main {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .search-area {
+        flex-direction: column;
+    }
+
+    .search-area select,
+    .search-area input {
+        width: 100%;
+    }
+
+    nav {
+        padding: 1rem 5%;
+    }
+
+    .logo {
+        font-size: 1.5rem;
+    }
+}

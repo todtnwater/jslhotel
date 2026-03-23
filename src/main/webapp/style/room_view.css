@@ -1,0 +1,455 @@
+@charset "UTF-8";
+
+/* ========== 전체 레이아웃 ========== */
+.room-detail-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    background: #f8f9fa;
+    min-height: calc(100vh - 200px);
+}
+
+.page-title {
+    font-size: 2rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 3rem;
+    font-weight: 700;
+}
+
+/* ========== 객실 상세 컨텐츠 ========== */
+.room-detail-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+    background: white;
+    padding: 2.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+/* ========== 객실 이미지 섹션 ========== */
+.room-image-section {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.room-main-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.room-main-image:hover {
+    transform: scale(1.05);
+}
+
+/* ========== 객실 정보 섹션 ========== */
+.room-info-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.room-info-section h2 {
+    font-size: 1.8rem;
+    color: #333;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #007bff;
+}
+
+.room-basic-info {
+    background: #f8f9fa;
+    padding: 1.8rem;
+    border-radius: 5px;
+    border-left: 4px solid #007bff;
+}
+
+.room-basic-info p {
+    margin: 0.9rem 0;
+    font-size: 1rem;
+    color: #555;
+    display: flex;
+    align-items: center;
+}
+
+.room-basic-info strong {
+    color: #333;
+    font-weight: 700;
+    min-width: 130px;
+    margin-right: 15px;
+}
+
+.room-facilities h3,
+.room-description h3 {
+    font-size: 1.3rem;
+    color: #333;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.room-facilities ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.room-facilities li {
+    background: #e8f5e9;
+    padding: 0.8rem 1rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #333;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.room-facilities li:hover {
+    background: #c8e6c9;
+    transform: translateX(5px);
+    border-color: #4caf50;
+}
+
+.room-description {
+    background: #fff3e0;
+    padding: 1.8rem;
+    border-radius: 5px;
+    border-left: 4px solid #ff9800;
+}
+
+.room-description p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #555;
+}
+
+/* ========== 예약 폼 섹션 ========== */
+.reservation-form-section {
+    background: white;
+    padding: 3rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.reservation-form-section h2 {
+    font-size: 1.8rem;
+    color: #333;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.reservation-form-section h3 {
+    font-size: 1.3rem;
+    color: #333;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+/* ========== 예약 요약 ========== */
+.reservation-summary {
+    background: #e7f3ff;
+    padding: 2rem;
+    border-radius: 5px;
+    margin-bottom: 2.5rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    border: 1px solid #007bff;
+}
+
+.summary-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.summary-item label {
+    font-size: 0.9rem;
+    color: #666;
+    font-weight: 600;
+}
+
+.summary-item span {
+    font-size: 1.1rem;
+    color: #333;
+    font-weight: 700;
+}
+
+/* ========== 조식 옵션 ========== */
+.breakfast-option-section {
+    margin-bottom: 2.5rem;
+}
+
+.breakfast-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.breakfast-option {
+    position: relative;
+    cursor: pointer;
+    display: block;
+}
+
+.breakfast-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+}
+
+.option-content {
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 1.8rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    min-height: 140px;
+    justify-content: center;
+}
+
+.breakfast-option input[type="radio"]:checked + .option-content {
+    border-color: #007bff;
+    background: #e7f3ff;
+    box-shadow: 0 2px 10px rgba(0, 123, 255, 0.2);
+    transform: translateY(-3px);
+}
+
+.option-content:hover {
+    border-color: #007bff;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.option-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #333;
+}
+
+.option-desc {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.option-price {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #007bff;
+}
+
+/* ========== 예약자 정보 ========== */
+.customer-info-section {
+    margin-bottom: 2.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.6rem;
+    font-weight: 600;
+    color: #555;
+    font-size: 1rem;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* ========== 가격 요약 ========== */
+.price-summary-section {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 5px;
+    margin-bottom: 2rem;
+    border: 1px solid #dee2e6;
+}
+
+.price-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.price-table tr {
+    border-bottom: 1px solid #dee2e6;
+}
+
+.price-table tr:last-child {
+    border-bottom: none;
+}
+
+.price-table td {
+    padding: 1.2rem 1rem;
+    font-size: 1rem;
+    color: #555;
+}
+
+.price-table .text-right {
+    text-align: right;
+    font-weight: 600;
+}
+
+.price-table .total-row {
+    background: #007bff;
+    color: white;
+}
+
+.price-table .total-row td {
+    font-size: 1.3rem;
+    font-weight: 700;
+    padding: 1.5rem 1rem;
+    color: white;
+}
+
+.price-table .total-row td:first-child {
+    border-radius: 5px 0 0 5px;
+}
+
+.price-table .total-row td:last-child {
+    border-radius: 0 5px 5px 0;
+}
+
+/* ========== 액션 버튼 ========== */
+.action-buttons {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.btn-back,
+.btn-reserve {
+    flex: 1;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-back {
+    background: white;
+    color: #666;
+    border: 2px solid #dee2e6;
+}
+
+.btn-back:hover {
+    background: #f8f9fa;
+    border-color: #adb5bd;
+    transform: translateY(-2px);
+}
+
+.btn-reserve {
+    background: #007bff;
+    color: white;
+    box-shadow: 0 2px 10px rgba(0, 123, 255, 0.3);
+}
+
+.btn-reserve:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
+}
+
+.btn-reserve:active {
+    transform: translateY(0);
+}
+
+/* ========== 반응형 디자인 ========== */
+@media (max-width: 1024px) {
+    .room-detail-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .breakfast-options {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .room-detail-container {
+        padding: 2rem 1rem;
+    }
+    
+    .page-title {
+        font-size: 1.5rem;
+    }
+    
+    .reservation-summary {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+    }
+    
+    .room-main-image {
+        height: 300px;
+    }
+    
+    .room-facilities ul {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .reservation-form-section {
+        padding: 2rem 1.5rem;
+    }
+    
+    .price-table td {
+        padding: 1rem 0.5rem;
+        font-size: 0.95rem;
+    }
+    
+    .btn-back,
+    .btn-reserve {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+}

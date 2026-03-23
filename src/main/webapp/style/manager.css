@@ -1,0 +1,92 @@
+@charset "UTF-8";
+
+/* ========== 관리자 전용 스타일 ========== 
+div:after {
+   content: "";
+}
+*/
+
+/* ========== 관리자 검색 영역 (일반과 다름) ========== */
+.m-search-area {
+    background: white;
+    width: 1000px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    align-items: center;
+    position: relative;
+}
+
+.m-search-area select,
+.m-search-area input {
+    padding: 0.8rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.m-search-area select {
+    width: 120px;
+}
+
+.m-search-area input {
+    flex: 1;
+}
+
+.m-search-area button {
+    padding: 0.8rem 2rem;
+    background: #4D869C;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.m-search-area button:hover {
+    background: #0056b3;
+}
+
+/* ========== 관리자 목록 영역 ========== */
+.list-area {
+    background: white;
+    width: 1000px;
+    padding: 40px 10px;
+    border-radius: 10px;
+    margin: 0 auto 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    gap: 1rem;
+    align-items: center;
+    position: relative;
+    overflow-x: auto;
+}
+
+.list-area table {
+    width: 100%;
+    min-width: 1000px;
+}
+
+.list-area table th,
+.list-area table td {
+    white-space: nowrap;
+    padding: 6px 15px;
+}
+
+.list-area th {
+    border-bottom: 1px black solid;
+    height: 35px;
+    line-height: 35px;
+}
+
+.list-area td {
+    border-bottom: 1px red dashed;
+    height: 35px;
+    line-height: 35px;
+    font-size: 15px;
+}

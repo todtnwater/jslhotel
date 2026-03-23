@@ -1,0 +1,374 @@
+@charset "UTF-8";
+
+/*호텔소개 기본 css 설정*/
+.content-wrapper { 
+    display: flex;      
+    width: 1200px;      
+    margin: 0 auto;     
+    padding-top: 40px;
+}
+
+.content-wrapper aside {
+    width: 200px;         
+    flex-shrink: 0;       
+    margin-right: 40px;   
+}
+
+.board-container { 
+    flex-grow: 1;         
+}
+
+.content-section .title {
+    font-size: 1.8em;
+    color: #333;
+    margin-top: 0;
+    border-left: 5px solid #b39b56; 
+    padding-left: 15px;
+}
+.content-section .subtitle { 
+    color: #a0a0a0;
+    font-style: italic;
+    margin-bottom: 30px;
+}
+
+/* 호텔 개요 */
+.overview-section .intro-box {
+    display: flex;
+    gap: 30px; 
+    margin-bottom: 40px;
+    align-items: center;
+}
+.overview-section .intro-box .text-content {
+    flex: 1; 
+}
+.overview-section .intro-box h3 {
+    color: #b39b56; 
+    font-size: 1.4em;
+    margin-top: 0;
+}
+.overview-section .intro-box .hotel-image {
+    flex: 0 0 40%; 
+    height: 250px;
+    overflow: hidden; 
+    border-radius: 5px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.overview-section .intro-box .exterior-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    display: block;
+    transition: transform 0.5s ease;
+}
+.overview-section .intro-box .hotel-image:hover .exterior-img {
+    transform: scale(1.05); 
+}
+
+.feature-list {
+    margin-top: 40px;
+    padding: 30px;
+    background-color: #fcfcfc; 
+    border: 1px solid #eee;
+}
+.feature-list h3 {
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+.feature-list ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.feature-list li { 
+    flex: 1 1 calc(50% - 20px); 
+    padding: 15px;
+    border-left: 4px solid #b39b56; 
+    background-color: #fff;
+    line-height: 1.5;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03); 
+}
+.feature-list .feature-img-wrap {
+    width: 100%;
+    height: 150px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    border-radius: 3px;
+}
+.feature-list .feature-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.feature-list li strong {
+    color: #333;
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1.1em;
+}
+.note {
+    margin-top: 50px;
+    padding: 20px;
+    background-color: #fffaf0; 
+    border: 1px solid #f0e6da; 
+    border-left: 5px solid #b39b56; 
+    text-align: center;
+    font-style: italic;
+}
+.note p {
+    margin: 0;
+    color: #4a4a4a;
+    font-size: 1.1em;
+}
+
+/* 오시는 길 */
+.road-section {
+    padding: 0; 
+}
+
+.road-section .map-area .hotel-image {
+    flex: 0 0 50%; 
+    height: 350px; 
+}
+.road-section .map-area h3 {
+    margin-top: 0;
+    color: #b39b56; 
+    font-size: 1.4em;
+}
+#hotelMap {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.address-summary {
+    background-color: #f7f7f7; 
+    border-left: 5px solid #b39b56; 
+    border-radius: 0 6px 6px 0; 
+    padding: 15px;
+    margin-top: 15px;
+    text-align: left; 
+}
+.address-summary strong {
+    font-size: 1.1em;
+    color: #333; 
+    display: inline;
+}
+
+.transport-grid { 
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    gap: 25px;
+    margin-top: 40px;
+}
+
+.transport-card {
+    background-color: #ffffff; 
+    border: 1px solid #e0e0e0; 
+    padding: 25px;
+    border-radius: 6px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.transport-card h4 {
+    color: #1a1a1a; 
+    font-size: 1.2em;
+    margin-top: 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e0e0e0; 
+    margin-bottom: 15px;
+}
+.transport-card ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+.transport-card li {
+    margin-bottom: 10px;
+    line-height: 1.6;
+    color: #555;
+}
+.transport-card strong {
+    color: #333;
+    display: block;
+    margin-bottom: 5px;
+}
+.transport-card .icon {
+    font-weight: bold;
+    color: #b39b56;
+    margin-right: 8px;
+}
+
+
+/* 객실 안내 */
+.room-list-container {
+    margin-top: 40px;
+}
+
+.room-card {
+    display: flex; 
+    margin-bottom: 40px;
+    padding: 20px;
+    border: 1px solid #e9e9e9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    background-color: #fff;
+    gap: 30px;
+    align-items: center; 
+}
+
+/* 객실 이미지 영역 */
+.room-card .room-image {
+    flex: 0 0 40%; 
+    max-width: 40%;
+    height: 250px;
+    overflow: hidden;
+    border-radius: 6px;
+}
+
+.room-card .room-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+
+/* 객실 상세 정보 영역 */
+.room-card .room-details {
+    flex: 1; 
+}
+
+.room-card h3 {
+    font-size: 1.8em;
+    color: #333;
+    border-bottom: 2px solid #b39b56; 
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.room-card .room-desc {
+    color: #555;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+/* 객실 특징 리스트 */
+.room-card .room-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.room-card .room-features li {
+    margin-bottom: 8px;
+    color: #4a4a4a;
+}
+
+.room-card .room-features strong {
+    font-weight: bold;
+    color: #1a1a1a;
+    display: inline-block;
+    min-width: 60px; 
+}
+
+/* 예약하기 버튼 스타일 */
+.room-card .btn-reserve {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 25px;
+    background-color: #b39b56; 
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+
+/* 부속시설 안내 */
+.facility-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 30px; 
+    margin-top: 40px;
+}
+
+.facility-card {
+    border: 1px solid #e0eeef;
+    border-radius: 8px;
+    overflow: hidden; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    background-color: #ffffff;
+    transition: transform 0.3s ease;
+}
+
+.facility-card:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* 시설 이미지 영역 */
+.facility-card .facility-image {
+    width: 100%;
+    height: 200px; 
+    overflow: hidden;
+}
+
+.facility-card .facility-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.facility-card:hover .facility-img {
+    transform: scale(1.05); 
+}
+
+/* 시설 상세 정보 영역 */
+.facility-card .facility-details {
+    padding: 20px 25px;
+}
+
+.facility-card h3 {
+    font-size: 1.5em;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 10px;
+    border-left: 4px solid #b39b56; 
+    padding-left: 10px;
+}
+
+.facility-card .facility-desc {
+    color: #666;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+/* 운영 정보 리스트 */
+.facility-card .facility-info {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px dashed #eee;
+    padding-top: 10px;
+}
+
+.facility-card .facility-info li {
+    font-size: 0.95em;
+    color: #4a4a4a;
+    line-height: 1.8;
+}
+
+.facility-card .facility-info strong {
+    font-weight: bold;
+    color: #1a1a1a;
+    display: inline-block;
+    min-width: 80px; 
+}

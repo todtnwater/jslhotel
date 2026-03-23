@@ -1,0 +1,646 @@
+@charset "UTF-8";
+
+/* ========================================
+   check.css
+   예약 조회 시스템 통합 스타일
+   - reservation_check.jsp
+   - reservation_list.jsp
+   - reservation_receipt.jsp
+   
+   ⚠️ header, menu, footer는 기존 스타일 유지
+   ⚠️ board.css 스타일 통합
+   ======================================== */
+
+/* ==================== 컨테이너 ==================== */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* ==================== 페이지 헤더 ==================== */
+.container .header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #4D869C 0%, #7AB2B2 100%);
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.container .header h1 {
+    color: #ffffff;
+    font-size: 36px;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+}
+
+.container .header p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 16px;
+    margin: 0;
+}
+
+/* ==================== 탭 버튼 ==================== */
+.tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 15px;
+    border: 2px solid #4D869C;
+    background: white;
+    color: #4D869C;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.tab-btn.active {
+    background: #4D869C;
+    color: white;
+}
+
+.tab-btn:hover {
+    background: #7AB2B2;
+    border-color: #7AB2B2;
+    color: white;
+}
+
+/* ==================== 검색 박스 ==================== */
+.search-box {
+    background: white;
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    max-width: 600px;
+    margin: 0 auto 30px auto;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* ==================== 폼 그룹 ==================== */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 15px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+    box-sizing: border-box;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #4D869C;
+}
+
+.member-info {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.member-info p {
+    color: #666;
+    margin-bottom: 30px;
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+/* ==================== 에러 박스 ==================== */
+.error-box {
+    background: #fff3cd;
+    border-left: 4px solid #ffc107;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.error-box p {
+    color: #856404;
+    margin: 0;
+    font-weight: 600;
+}
+
+/* ==================== 빈 목록 박스 ==================== */
+.empty-box {
+    background: white;
+    border-radius: 15px;
+    padding: 60px 40px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.empty-box .icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+}
+
+.empty-box h2 {
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 28px;
+}
+
+.empty-box p {
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 16px;
+}
+
+/* ==================== 예약 목록 (board.css 스타일 통합) ==================== */
+.post-list {
+    margin-bottom: 2rem;
+}
+
+.post-card {
+    background: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: all 0.3s;
+    cursor: pointer;
+    border-left: 4px solid #4D869C;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    position: relative;
+}
+
+.post-card:hover {
+    transform: translateX(5px);
+    box-shadow: 0 3px 15px rgba(0,0,0,0.12);
+}
+
+/* 예약 상태별 카드 스타일 */
+.post-card.notice {
+    background: #e8f4ff;
+    border-left-color: #17a2b8;
+}
+
+.post-card.popup {
+    background: #e8ffe8;
+    border-left-color: #28a745;
+    border-left-width: 6px;
+}
+
+.post-card.urgent {
+    background: #ffe8e8;
+    border-left-color: #dc3545;
+    animation: urgentPulse 2s ease-in-out infinite;
+}
+
+@keyframes urgentPulse {
+    0%, 100% {
+        box-shadow: 0 2px 10px rgba(220, 53, 69, 0.2);
+    }
+    50% {
+        box-shadow: 0 4px 20px rgba(220, 53, 69, 0.4);
+    }
+}
+
+/* 배지 스타일 */
+.post-badge {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    background: #6c757d;
+    color: white;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.post-badge.normal {
+    background: #6c757d;
+}
+
+.post-badge.notice {
+    background: #17a2b8;
+}
+
+.post-badge.popup {
+    background: #28a745;
+}
+
+.post-badge.urgent {
+    background: #dc3545;
+    animation: badgePulse 1.5s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* 우선순위 배지 */
+.priority-badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-left: 0.5rem;
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+.priority-badge.low {
+    background: #e9ecef;
+    color: #6c757d;
+}
+
+.priority-badge.normal {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+.priority-badge.high {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.priority-badge.urgent {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* 카드 제목 */
+.post-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* 카드 미리보기 */
+.post-preview {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+}
+
+/* 카드 메타 정보 */
+.post-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid #e0e0e0;
+    font-size: 0.9rem;
+    color: #999;
+}
+
+.post-author {
+    font-weight: 600;
+    color: #666;
+}
+
+.post-stats {
+    display: flex;
+    gap: 1rem;
+}
+
+/* ==================== 영수증 ==================== */
+.content-area {
+    padding: 30px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.section {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.section h3 {
+    color: #4D869C;
+    font-size: 20px;
+    margin-bottom: 15px;
+    padding-left: 5px;
+    border-left: 4px solid #7AB2B2;
+}
+
+.info-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+}
+
+.info-table th,
+.info-table td {
+    padding: 12px 0;
+    text-align: left;
+}
+
+.info-table th {
+    width: 35%;
+    color: #666;
+    font-weight: 500;
+}
+
+.info-table td {
+    color: #333;
+    font-weight: 600;
+}
+
+.price-summary tr:last-child {
+    border-top: 2px solid #ddd;
+}
+
+.price-summary .final-price-row th,
+.price-summary .final-price-row td {
+    font-size: 18px;
+    font-weight: bold;
+    color: #4D869C;
+    padding-top: 15px;
+}
+
+.request-box {
+    background-color: #f8f8f8;
+    border: 1px dashed #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.request-box p {
+    margin: 0;
+    color: #333;
+    line-height: 1.5;
+    font-size: 14px;
+}
+
+.guide-section ul {
+    list-style: none;
+    padding-left: 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.guide-section li {
+    padding: 5px 0;
+    border-bottom: 1px dotted #eee;
+}
+
+.guide-section li:last-child {
+    border-bottom: none;
+}
+
+.guide-section li strong {
+    color: #333;
+}
+
+.footer {
+    text-align: center;
+    padding-top: 20px;
+    font-size: 13px;
+    color: #999;
+}
+
+.footer p {
+    margin: 5px 0;
+}
+
+/* ==================== 버튼 ==================== */
+.btn-search {
+    width: 100%;
+    padding: 18px;
+    background: linear-gradient(135deg, #4D869C 0%, #7AB2B2 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 10px;
+}
+
+.btn-search:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(77, 134, 156, 0.4);
+}
+
+.btn-search:active {
+    transform: translateY(0);
+}
+
+.btn-detail {
+    display: block;
+    width: calc(100% - 60px);
+    margin: 0 30px 30px 30px;
+    padding: 15px;
+    background: linear-gradient(135deg, #4D869C 0%, #7AB2B2 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-detail:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(77, 134, 156, 0.4);
+}
+
+.btn-detail:active {
+    transform: translateY(0);
+}
+
+.btn-back {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: #f0f0f0;
+    color: #444;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.2s;
+    margin-top: 20px;
+}
+
+.btn-back:hover {
+    background-color: #e0e0e0;
+}
+
+.button-area {
+    padding: 20px 30px;
+    text-align: center;
+    border-top: 1px solid #eee;
+    background-color: #fcfcfc;
+    margin-top: 30px;
+}
+
+.btn-group {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-group .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    margin: 0 5px;
+    transition: background-color 0.2s;
+}
+
+.btn-primary {
+    background-color: #4D869C;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #386777;
+}
+
+.btn-secondary {
+    background-color: #f0f0f0;
+    color: #444;
+}
+
+.btn-secondary:hover {
+    background-color: #e0e0e0;
+}
+
+.error-message {
+    text-align: center;
+    padding: 40px;
+}
+
+.error-message p {
+    color: red;
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+/* ==================== 프린트 스타일 ==================== */
+@media print {
+    .button-area,
+    .container .header {
+        display: none;
+    }
+    
+    .container {
+        box-shadow: none;
+        border: none;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .info-table th {
+        color: #000;
+    }
+}
+
+/* ==================== 반응형 ==================== */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .container .header {
+        padding: 30px 15px;
+    }
+    
+    .container .header h1 {
+        font-size: 28px;
+    }
+    
+    .tabs {
+        flex-direction: column;
+    }
+    
+    .search-box {
+        padding: 20px;
+    }
+    
+    .post-card {
+        padding: 1rem;
+    }
+    
+    .post-card h3 {
+        font-size: 1.1rem;
+    }
+    
+    .post-badge {
+        font-size: 0.75rem;
+        padding: 0.2rem 0.6rem;
+    }
+    
+    .priority-badge {
+        font-size: 0.7rem;
+    }
+    
+    .btn-group {
+        flex-direction: column;
+    }
+    
+    .btn-group .btn {
+        width: 100%;
+        margin: 5px 0;
+    }
+    
+    .content-area {
+        padding: 20px;
+    }
+    
+    .section {
+        padding: 15px 0;
+    }
+}

@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSL 호텔 평면도</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2em;
+            color: #333;
+        }
+        
+        .floor-selector {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .floor-btn {
+            padding: 10px 20px;
+            margin: 0 5px;
+            border: 2px solid #333;
+            background: white;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+        
+        .floor-btn.active {
+            background: #333;
+            color: white;
+        }
+        
+        .floor-btn:hover {
+            background: #555;
+            color: white;
+        }
+        
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9em;
+        }
+        
+        .legend-box {
+            width: 25px;
+            height: 25px;
+            border: 2px solid #333;
+        }
+        
+        .floor-plan {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            min-height: 500px;
+            overflow: auto;
+            border: 3px solid #000;
+            background: white;
+            margin: 20px auto;
+        }
+        
+        .corridor {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 125%;
+            background: #e8e8e8;
+            border-left: 2px solid #666;
+            border-right: 2px solid #666;
+            z-index: 1;
+        }
+        
+        .corridor-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #666;
+            writing-mode: vertical-rl;
+        }
+        
+        .rooms-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .room {
+            position: absolute;
+            border: 2px solid #333;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+        
+        .room:hover {
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            z-index: 100;
+            transform: scale(1.02);
+        }
+        
+        .room-number {
+            font-size: 1.2em;
+            margin-bottom: 3px;
+        }
+        
+        .room-info {
+            font-size: 0.75em;
+            color: #555;
+        }
+        
+        .room-status-dot {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 1px solid #333;
+        }
+        
+        /* 객실 타입별 색상 */
+        .standard {
+            background: #E3F2FD;
+        }
+        
+        .deluxe {
+            background: #FFF3E0;
+        }
+        
+        .suite {
+            background: #F3E5F5;
+        }
+        
+        /* 상태 색상 */
+        .status-available {
+            background: #4CAF50;
+        }
+        
+        .status-occupied {
+            background: #F44336;
+        }
+        
+        .status-maintenance {
+            background: #FF9800;
+        }
+        
+        /* 엘리베이터 */
+        .elevator {
+            position: absolute;
+            width: 50px;
+            height: 80px;
+            background: #ccc;
+            border: 2px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            font-weight: bold;
+            z-index: 2;
+        }
+        
+        .stairs {
+            position: absolute;
+            width: 50px;
+            height: 80px;
+            background: #ddd;
+            border: 2px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            font-weight: bold;
+            z-index: 2;
+        }
+        
+        .tooltip {
+            position: fixed;
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            pointer-events: none;
+            z-index: 1000;
+            display: none;
+            max-width: 300px;
+            line-height: 1.6;
+        }
+        
+        .tooltip.show {
+            display: block;
+        }
+        
+        .info-panel {
+            text-align: center;
+            padding: 15px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            margin-top: 20px;
+        }
+        
+        .scale-info {
+            text-align: right;
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>JSL 호텔 평면도</h1>
+        
+        <div class="floor-selector">
+            <button class="floor-btn active" onclick="showFloor(5)">5층 (Suite)</button>
+            <button class="floor-btn" onclick="showFloor(4)">4층</button>
+            <button class="floor-btn" onclick="showFloor(3)">3층</button>
+            <button class="floor-btn" onclick="showFloor(2)">2층</button>
+        </div>
+        
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-box standard"></div>
+                <span>Standard (스탠다드)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box deluxe"></div>
+                <span>Deluxe (디럭스)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box suite"></div>
+                <span>Suite (스위트)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box" style="background: #4CAF50;"></div>
+                <span>예약가능</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box" style="background: #F44336;"></div>
+                <span>투숙중</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box" style="background: #FF9800;"></div>
+                <span>정비중</span>
+            </div>
+        </div>
+        
+        <div class="floor-plan">
+            <div class="corridor">
+                <div class="corridor-label">복 도</div>
+            </div>
+            <div class="rooms-container" id="roomsContainer"></div>
+            
+            <!-- 엘리베이터 -->
+            <div class="elevator" style="left: 40.5%; top: 10px;">EV</div>
+            
+            <!-- 계단 -->
+            <div class="stairs" style="right: 40.5%; top: 10px;">계단</div>
+        </div>
+        
+        <div class="scale-info">축척 1:100</div>
+        
+        <div class="info-panel" id="infoPanel">
+            층을 선택하면 상세 평면도가 표시됩니다
+        </div>
+    </div>
+    
+    <div class="tooltip" id="tooltip"></div>
+    
+    <script>
+    const roomsData = {
+    	    2: [
+    	        { no: '201', type: 'Standard', floor: 2, scale: '25㎡', standard: 2, max: 3, extra: 20000, bed: 2, bedType: '더블', wifi: 'Y', spa: 'N', smoking: 'N', view: '시티뷰', balcony: 'N', bathroom: 1, kitchen: 'N', price: 80000, status: 'AVAILABLE', cleanStatus: 'CLEAN', registerDate: '2025-01-01', lastUpdate: '2025-10-22', description: '기본형 더블룸' },
+    	        { no: '202', type: 'Standard', floor: 2, scale: '25㎡', standard: 2, max: 3, extra: 20000, bed: 2, bedType: '트윈', wifi: 'Y', spa: 'N', smoking: 'N', view: '시티뷰', balcony: 'N', bathroom: 1, kitchen: 'N', price: 80000, status: 'AVAILABLE', cleanStatus: 'CLEAN', registerDate: '2025-01-01', lastUpdate: '2025-10-22', description: '기본형 트윈룸' },
+    	        { no: '203', type: 'Standard', floor: 2, scale: '25㎡', standard: 2, max: 3, extra: 20000, bed: 1, bedType: '퀸', wifi: 'Y', spa: 'N', smoking: 'N', view: '시티뷰', balcony: 'N', bathroom: 1, kitchen: 'N', price: 75000, status: 'AVAILABLE', cleanStatus: 'CLEAN', registerDate: '2025-01-01', lastUpdate: '2025-10-22', description: '컴팩트 퀸 스탠다드룸' },
+    	        { no: '204', type: 'Deluxe', floor: 2, scale: '35㎡', standard: 2, max: 4, extra: 30000, bed: 1, bedType: '킹', wifi: 'Y', spa: 'Y', smoking: 'N', view: '시티뷰', balcony: 'Y', bathroom: 1, kitchen: 'N', price: 130000, status: 'AVAILABLE', cleanStatus: 'CLEAN', registerDate: '2025-01-01', lastUpdate: '2025-10-22', description: '킹 침대 디럭스룸, 발코니 포함' },
+    	        { no: '205', type: 'Deluxe', floor: 2, scale: '35㎡', standard: 2, max: 4, extra: 30000, bed: 1, bedType: '퀸', wifi: 'Y', spa: 'Y', smoking: 'N', view: '시티뷰', balcony: 'Y', bathroom: 1, kitchen: 'N', price: 110000, status: 'AVAILABLE', cleanStatus: 'CLEAN', registerDate: '2025-01-01', lastUpdate: '2025-10-22', description: '컴팩트 퀸 디럭스룸' },
+    	        { no: '2F-REST', type: 'Staff', floor: 2, scale: '25㎡', standard: 0, max: 0, extra: 0, bed: 0, bedType: '-', wifi: 'Y', spa: 'N', smoking: 'N', view: '-', balcony: 'N', bathroom: 0, kitchen: 'Y', price: 0, status: 'STAFF', cleanStatus: '-', registerDate: '2025-01-01', lastUpdate: '2025-10-22', description: '직원 휴게실' },
+    	        { no: '2F-COMMUNITY', type: 'Public', floor: 2, scale: '40㎡', standard: 0, max: 0, extra: 0, bed: 0, bedType: '-', wifi: 'Y', spa: 'N', smoking: 'N', view: '-', balcony: 'N', bathroom: 0, kitchen: 'Y', price: 0, status: 'PUBLIC', cleanStatus: '-', registerDate: '2025-01-01', lastUpdate: '2025-10-22', description: '커뮤니티룸 - 자판기, 아이스머신, 정수기, 휴게공간' }
+    	    ],
+    	    3: [
+    	        { no: '301', type: 'Standard', floor: 3, scale: '25㎡', standard: 2, max: 3, extra: 20000, bed: 2, bedType: '더블', wifi: 'Y', spa: 'N', smoking: 'N', view: '시티뷰', balcony: 'N', bathroom: 1, kitchen: 'N', price: 80000, status: 'AVAILABLE', cleanStatus: 'CLEAN', registerDate: '2025-01-01', lastUpdate: '2025-10-22', description: '기본형 더블룸' },
+    	        { no: '302', type: 'Standard', floor: 3, scale: '25㎡', standard: 2, max: 3, extra: 20000, bed: 2, bedType: '트윈', wifi: 'Y', spa: 'N', smoking: 'N', view: '시티뷰', balcony: 'N', bathroom: 1, kitchen: 'N', price: 80000, status: 'OCCUPIED', cleanStatus: 'DIRTY', registerDate: '2025-01-01', lastUpdate: '2025-10-22', description: '기본형 트윈룸' },
+    	        { no: '303', type: 'Standard', floor: 3, scale: '25㎡', standard: 2, max: 3, extra: 20000, bed: 1, bedType: '퀸', wifi: 'Y', spa: 'N', smoking: 'N', view: '시티뷰', balcony: 'N', bathroom: 1, kitchen: 'N', price: 75000, status: 'AVAILABLE', cleanStatus: 'CLEAN', registerDate: '2025-01-01', lastUpdate: '2025-10-22', description: '컴팩트 퀸 스탠다드룸' },
+    	        { no: '304', type: 'Deluxe', floor: 3, scale: '35㎡', standard: 2, max: 4, extra: 30000, bed: 1, bedType: '킹', wifi: 'Y', spa: 'Y', smoking: 'N', view: '시티뷰', balcony: 'Y', bathroom: 1, kitchen: 'N', price: 130000, status: 'AVAILABLE', cleanStatus: 'CLEAN', registerDate: '2025-01-01', lastUpdate: '2025-10-22', description: '킹 침대 디럭스룸, 발코니 포함' },
+    	        { no: '305', type: 'Deluxe', floor: 3, scale: '35㎡', standard: 2, max: 4, extra: 30000, bed: 1, bedType: '퀸', wifi: 'Y', spa: 'Y', smoking: 'N', view: '시티뷰', balcony: 'Y', bathroom: 1, kitchen: 'N', price: 110000, status: 'AVAILABLE', cleanStatus: 'CLEAN', registerDate: '2025-01-01', lastUpdate: '2025-10-22', description: '컴팩트 퀸 디럭스룸' },
+    	        { no: '3F-LINEN', type: 'Staff', floor: 3, scale: '25㎡', standard: 0, max: 0, extra: 0, bed: 0, bedType: '-', wifi: 'N', spa: 'N', smoking: 'N', view: '-', balcony: 'N', bathroom: 0, kitchen: 'N', price: 0, status: 'STAFF', cleanStatus: '-', registerDate: '2025-01-01', lastUpdate: '2025-10-22', description: '린넨 및 청소용품 보관실' },
+    	        { no: '3F-COMMUNITY', type: 'Public', floor: 3, scale: '40㎡', standard: 0, max: 0, extra: 0, bed: 0, bedType: '-', wifi: 'Y', spa: 'N', smoking: 'N', view: '-', balcony: 'N', bathroom: 0, kitchen: 'Y', price: 0, status: 'PUBLIC', cleanStatus: '-', registerDate: '2025-01-01', lastUpdate: '2025-10-22', description: '커뮤니티룸 - 자판기, 아이스머신, 정수기, 휴게공간' }
+    	    ],
+    	    4: [
+    	        { no: '401', type: 'Standard', floor: 4, scale: '25㎡', standard: 2, max: 3, extra: 20000, bed: 2, bedType: '더블', wifi: 'Y', spa: 'N', smoking: 'N', view: '시티뷰', balcony: 'N', bathroom: 1, kitchen: 'N', price: 80000, status: 'AVAILABLE', cleanStatus: 'CLEAN', registerDate: '2025-01-01', lastUpdate: '2025-10-22', description: '기본형 더블룸' },
+    	        { no: '402', type: 'Standard', floor: 4, scale: '25㎡', standard: 2, max: 3, extra: 20000, bed: 2, bedType: '트윈', wifi: 'Y', spa: 'N', smoking: 'N', view: '시티뷰', balcony: 'N', bathroom: 1, kitchen: 'N', price: 80000, status: 'AVAILABLE', cleanStatus: 'CLEAN', registerDate: '2025-01-01', lastUpdate: '2025-10-22', description: '기본형 트윈룸' },
+    	        { no: '403', type: 'Standard', floor: 4, scale: '25㎡', standard: 2, max: 3, extra: 20000, bed: 1, bedType: '퀸', wifi: 'Y', spa: 'N', smoking: 'N', view: '시티뷰', balcony: 'N', bathroom: 1, kitchen: 'N', price: 75000, status: 'MAINTENANCE', cleanStatus: 'CLEAN', registerDate: '2025-01-01', lastUpdate: '2025-10-22', description: '컴팩트 퀸 스탠다드룸' },
+    	        { no: '404', type: 'Deluxe', floor: 4, scale: '35㎡', standard: 2, max: 4, extra: 30000, bed: 1, bedType: '킹', wifi: 'Y', spa: 'Y', smoking: 'N', view: '시티뷰', balcony: 'Y', bathroom: 1, kitchen: 'N', price: 130000, status: 'AVAILABLE', cleanStatus: 'CLEAN', registerDate: '2025-01-01', lastUpdate: '2025-10-22', description: '킹 침대 디럭스룸, 발코니 포함' },
+    	        { no: '405', type: 'Deluxe', floor: 4, scale: '35㎡', standard: 2, max: 4, extra: 30000, bed: 1, bedType: '퀸', wifi: 'Y', spa: 'Y', smoking: 'N', view: '시티뷰', balcony: 'Y', bathroom: 1, kitchen: 'N', price: 110000, status: 'AVAILABLE', cleanStatus: 'CLEAN', registerDate: '2025-01-01', lastUpdate: '2025-10-22', description: '컴팩트 퀸 디럭스룸' },
+    	        { no: '4F-LINEN', type: 'Staff', floor: 4, scale: '25㎡', standard: 0, max: 0, extra: 0, bed: 0, bedType: '-', wifi: 'N', spa: 'N', smoking: 'N', view: '-', balcony: 'N', bathroom: 0, kitchen: 'N', price: 0, status: 'STAFF', cleanStatus: '-', registerDate: '2025-01-01', lastUpdate: '2025-10-22', description: '린넨 및 청소용품 보관실' },
+    	        { no: '4F-COMMUNITY', type: 'Public', floor: 4, scale: '40㎡', standard: 0, max: 0, extra: 0, bed: 0, bedType: '-', wifi: 'Y', spa: 'N', smoking: 'N', view: '-', balcony: 'N', bathroom: 0, kitchen: 'Y', price: 0, status: 'PUBLIC', cleanStatus: '-', registerDate: '2025-01-01', lastUpdate: '2025-10-22', description: '커뮤니티룸 - 자판기, 아이스머신, 정수기, 휴게공간' }
+    	    ],
+    	    5: [
+    	        { no: '501', type: 'Suite', floor: 5, scale: '60㎡', standard: 4, max: 6, extra: 50000, bed: 2, bedType: '킹x2', wifi: 'Y', spa: 'Y', smoking: 'N', view: '오션뷰', balcony: 'Y', bathroom: 2, kitchen: 'Y', price: 250000, status: 'AVAILABLE', cleanStatus: 'CLEAN', registerDate: '2025-01-01', lastUpdate: '2025-10-22', description: '킹 침대 2개, 거실 분리형 스위트룸' },
+    	        { no: '502', type: 'Suite', floor: 5, scale: '60㎡', standard: 4, max: 6, extra: 50000, bed: 2, bedType: '킹x2', wifi: 'Y', spa: 'Y', smoking: 'N', view: '오션뷰', balcony: 'Y', bathroom: 2, kitchen: 'Y', price: 250000, status: 'AVAILABLE', cleanStatus: 'CLEAN', registerDate: '2025-01-01', lastUpdate: '2025-10-22', description: '킹 침대 2개, 거실 분리형 스위트룸' },
+    	        { no: '5F-LOUNGE', type: 'Public', floor: 5, scale: '40㎡', standard: 0, max: 0, extra: 0, bed: 0, bedType: '-', wifi: 'Y', spa: 'N', smoking: 'N', view: '-', balcony: 'N', bathroom: 0, kitchen: 'Y', price: 0, status: 'PUBLIC', cleanStatus: '-', registerDate: '2025-01-01', lastUpdate: '2025-10-22', description: '스위트 전용 라운지 - 조식, 음료, 비즈니스 공간' }
+    	    ]
+    	};
+        
+        let currentFloor = 5;
+        const tooltip = document.getElementById('tooltip');
+        
+        function showFloor(floor) {
+            currentFloor = floor;
+            
+            // 버튼 활성화
+            document.querySelectorAll('.floor-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // 객실 렌더링
+            renderRooms(floor);
+            
+            // 정보 패널 업데이트
+            const rooms = roomsData[floor];
+            const available = rooms.filter(r => r.status === 'AVAILABLE').length;
+            const occupied = rooms.filter(r => r.status === 'OCCUPIED').length;
+            const maintenance = rooms.filter(r => r.status === 'MAINTENANCE').length;
+            
+            document.getElementById('infoPanel').innerHTML = `
+                <strong>${floor}층 현황</strong> | 
+                총 ${rooms.length}실 | 
+                예약가능: ${available}실 | 
+                투숙중: ${occupied}실 | 
+                정비중: ${maintenance}실
+            `;
+        }
+        
+        function renderRooms(floor) {
+            const container = document.getElementById('roomsContainer');
+            container.innerHTML = '';
+            
+            const rooms = roomsData[floor];
+            
+            // 각 방의 절대 위치 정의 (호수별로 고정) - 퍼센트 기반
+            const roomPositions = {
+            	    // 2층
+            	    '201': { left: '33.5%', top: '18%', width: '11%', height: '26%' },
+            	    '202': { left: '33.5%', top: '45%', width: '11%', height: '26%' },
+            	    '203': { left: '33.5%', top: '72%', width: '11%', height: '26%' },
+            	    '2F-REST': { left: '33.5%', top: '99%', width: '11%', height: '26%' },
+            	    '204': { right: '31.5%', top: '18%', width: '13%', height: '31%' },
+            	    '205': { right: '31.5%', top: '50%', width: '13%', height: '31%' },
+            	    '2F-COMMUNITY': { right: '31.5%', top: '82%', width: '13%', height: '43%' },
+            	    
+            	    // 3층
+            	    '301': { left: '33.5%', top: '18%', width: '11%', height: '26%' },
+            	    '302': { left: '33.5%', top: '45%', width: '11%', height: '26%' },
+            	    '303': { left: '33.5%', top: '72%', width: '11%', height: '26%' },
+            	    '3F-LINEN': { left: '33.5%', top: '99%', width: '11%', height: '26%' },
+            	    '304': { right: '31.5%', top: '18%', width: '13%', height: '31%' },
+            	    '305': { right: '31.5%', top: '50%', width: '13%', height: '31%' },
+            	    '3F-COMMUNITY': { right: '31.5%', top: '82%', width: '13%', height: '43%' },
+            	    
+            	    // 4층
+            	    '401': { left: '33.5%', top: '18%', width: '11%', height: '26%' },
+            	    '402': { left: '33.5%', top: '45%', width: '11%', height: '26%' },
+            	    '403': { left: '33.5%', top: '72%', width: '11%', height: '26%' },
+            	    '4F-LINEN': { left: '33.5%', top: '99%', width: '11%', height: '26%' },
+            	    '404': { right: '31.5%', top: '18%', width: '13%', height: '31%' },
+            	    '405': { right: '31.5%', top: '50%', width: '13%', height: '31%' },
+            	    '4F-COMMUNITY': { right: '31.5%', top: '82%', width: '13%', height: '43%' },
+            	    
+            	    // 5층
+            	    '501': { left: '31.5%', top: '18%', width: '13%', height: '48%' },
+            	    '502': { right: '30.5%', top: '18%', width: '14%', height: '48%' },
+            	    '5F-LOUNGE': { right: '30.5%', top: '67%', width: '14%', height: '38%' }
+            	};
+            
+            rooms.forEach((room) => {
+                const roomDiv = document.createElement('div');
+                roomDiv.className = `room ${room.type.toLowerCase()}`;
+                
+                // 고정된 위치 가져오기
+                const pos = roomPositions[room.no];
+                
+                if (pos.left !== undefined) {
+                    roomDiv.style.left = pos.left;
+                } else {
+                    roomDiv.style.right = pos.right;
+                }
+                
+                roomDiv.style.top = pos.top;
+                roomDiv.style.width = pos.width;
+                roomDiv.style.height = pos.height;
+                
+                const statusDot = document.createElement('div');
+                statusDot.className = `room-status-dot status-${room.status.toLowerCase()}`;
+                roomDiv.appendChild(statusDot);
+                
+                const roomNumber = document.createElement('div');
+                roomNumber.className = 'room-number';
+                roomNumber.textContent = room.no;
+                roomDiv.appendChild(roomNumber);
+                
+                const roomInfo = document.createElement('div');
+                roomInfo.className = 'room-info';
+                roomInfo.textContent = `${room.type} | ${room.scale}`;
+                roomDiv.appendChild(roomInfo);
+                
+                // 이벤트
+                roomDiv.addEventListener('mouseenter', (e) => {
+                    const statusText = room.status === 'AVAILABLE' ? '예약가능' : 
+                                     room.status === 'OCCUPIED' ? '투숙중' : '정비중';
+                    
+                    tooltip.innerHTML = `
+                        <strong>${room.no}호</strong><br>
+                        타입: ${room.type}<br>
+                        크기: ${room.scale}<br>
+                        기준 인원: ${room.standard}인 / 최대: ${room.max}인<br>
+                        추가 요금: ${room.extra.toLocaleString()}원/인<br>
+                        침대: ${room.bed}<br>
+                        가격: ${room.price.toLocaleString()}원/박<br>
+                        상태: ${statusText}
+                    `;
+                    tooltip.classList.add('show');
+                });
+                
+                roomDiv.addEventListener('mousemove', (e) => {
+                    tooltip.style.left = (e.clientX + 15) + 'px';
+                    tooltip.style.top = (e.clientY + 15) + 'px';
+                });
+                
+                roomDiv.addEventListener('mouseleave', () => {
+                    tooltip.classList.remove('show');
+                });
+                
+                container.appendChild(roomDiv);
+            });
+        }
+        
+        // 초기 렌더링
+        showFloor(2);
+    </script>
+</body>
+</html>
