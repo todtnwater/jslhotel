@@ -1,15 +1,19 @@
---ホテル予約システム DB設計--
+# ホテル予約システム DB設計
 
-制作者：キム・ソンス、チェ・ジンウォン、イ・ゴンヒ
+**制作者：** キム・ソンス（Kim Sungsu）、チェ・ジンウォン（Choi Jinwon）、イ・ゴンヒ（Lee Geonhee）
 
--- 使用技術
-* ORACLESQL / JSP / Servlet / Java
-
-本プロジェクトはホテル予約システムを想定し、実際の業務フローを考慮してデータベースを設計しました。
+## 使用技術
+- ORACLE SQL / JSP / Servlet / Java
 
 ---
 
--設計の目的
+本プロジェクトはホテル予約システムを想定し、実際の業務フローを考慮してデータベースを設計しました。
+
+🔗 リポジトリ：https://github.com/todtnwater/jsl-hotel
+
+---
+
+## 設計の目的
 
 - 会員管理、客室管理、予約、決済を一元管理する
 - 各機能を独立したテーブルで管理し、拡張性と保守性を向上させる
@@ -17,61 +21,49 @@
 
 ---
 
--主要テーブル構成
+## 主要テーブル構成
 
--jsl_hotel_member（会員）
+### jsl_hotel_member（会員）
 会員の基本情報を管理するテーブルです。  
 ID、氏名、連絡先、ランクなどを保持します。
 
----
-
--jsl_hotel_room（客室）
+### jsl_hotel_room（客室）
 客室の詳細情報を管理します。  
 定員、料金、設備（Wi-Fi、スパ、喫煙可否など）を含みます。
 
----
-
--jsl_hotel_reservation（予約）
+### jsl_hotel_reservation（予約）
 予約情報を管理する中心テーブルです。  
 会員と客室を紐づけ、チェックイン・チェックアウト日を管理します。
 
----
-
--jsl_hotel_payment（決済）
+### jsl_hotel_payment（決済）
 予約に対する決済情報を管理します。  
 決済金額、方法、状態などを保持します。
 
----
-
--jsl_hotel_reservation_discount（割引）
+### jsl_hotel_reservation_discount（割引）
 予約に適用された割引情報を管理します。  
 割引率や最終金額を計算できるように設計しました。
 
----
-
--jsl_hotel_room_image（客室画像）
+### jsl_hotel_room_image（客室画像）
 客室の画像を管理し、複数画像対応が可能です。
 
----
-
--sl_hotel_notice / qna / faq
+### jsl_hotel_notice / jsl_hotel_qna / jsl_hotel_faq
 ユーザー向けの案内・問い合わせ・FAQ機能を管理します。
 
 ---
 
--テーブル関係
+## テーブル関係
 
-- 会員（member）1 : N 予約（reservation）  
-- 客室（room）1 : N 予約（reservation）  
-- 予約（reservation）1 : 1 決済（payment）  
-- 予約（reservation）1 : N 割引（discount）  
+- 会員（member）1 : N 予約（reservation）
+- 客室（room）1 : N 予約（reservation）
+- 予約（reservation）1 : 1 決済（payment）
+- 予約（reservation）1 : N 割引（discount）
 - 客室（room）1 : N 画像（room_image）
 
 業務フローに合わせてリレーションを設計しました。
 
 ---
 
--設計の特徴
+## 設計の特徴
 
 - 正規化を意識し、データの重複を最小化
 - 予約を中心に会員・客室・決済を分離
@@ -79,9 +71,7 @@ ID、氏名、連絡先、ランクなどを保持します。
 
 ---
 
--補足
+## 補足
 
-本設計は実際のホテル予約システムをベースに、  
-実務で使われる構造を意識して設計しました。
-
+本設計は実際のホテル予約システムをベースに、実務で使われる構造を意識して設計しました。  
 本プロジェクトの詳細については、別途資料（LH_project(jpn)_pdf）をご用意しておりますので、あわせてご覧いただけますと幸いです。
