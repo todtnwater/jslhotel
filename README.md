@@ -3,11 +3,15 @@
 **制作者：** キム・ソンス（Kim Sungsu）、チェ・ジンウォン（Choi Jinwon）、イ・ゴンヒ（Lee Geonhee）
 
 ## 使用技術
-- ORACLE SQL / JSTL / Servlet / Java
+- ORACLE SQL / JSP / JSTL / Servlet / Java
+- JavaMail API（Gmail SMTP）／ JSch（SFTP）／ COS（ファイルアップロード）
+- Toss Payments API（決済）／ Google Gson（JSON処理）／ SHA-256（パスワード暗号化）
 
 ---
 
 本プロジェクトはホテル予約システムを想定し、実際の業務フローを考慮してデータベースを設計しました。
+
+リポジトリ：https://github.com/todtnwater/jsl-hotel
 
 ---
 
