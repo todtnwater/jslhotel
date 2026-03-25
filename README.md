@@ -12,6 +12,7 @@
 本プロジェクトはホテル予約システムを想定し、実際の業務フローを考慮してデータベースを設計しました。
 
 リポジトリ：https://github.com/todtnwater/jsl-hotel
+サイトリンク : https://jslhotel.xyz/project_hotel/Index
 
 ---
 
