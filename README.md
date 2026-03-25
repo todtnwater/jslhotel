@@ -3,7 +3,7 @@
 **制作者：** キム・ソンス（Kim Sungsu）、チェ・ジンウォン（Choi Jinwon）、イ・ゴンヒ（Lee Geonhee）
 
 ## 使用技術
-- ORACLE SQL / JSP / Servlet / Java
+- ORACLE SQL / JSTL / Servlet / Java
 
 ---
 
