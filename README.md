@@ -1,6 +1,6 @@
 # ホテル予約システム DB設計
 
-**制作者：** キム・ソンス（Kim Sungsu）、チェ・ジンウォン（Choi Jinwon）、イ・ゴンヒ（Lee Geonhee）
+**制作者：** キム・ソンス（Kim Seongsu）、チェ・ジンウォン（Choi Jinwon）、イ・ゴンヒ（Lee Geonhee）
 
 ## 使用技術
 - ORACLE SQL / JSP / JSTL / Servlet / Java
